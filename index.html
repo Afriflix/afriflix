@@ -343,12 +343,25 @@ function addToWatchlist(movieName) {
         <div class="movie-info">
           <h3>${movieName}</h3>
           <p>Saved to your watchlist ❤️</p>
+          <button onclick="removeFromWatchlist('${movieName}')">Remove ❌</button>
         </div>
       </div>
     `;
   });
  } 
+  function removeFromWatchlist(movieName) {
+  let watchlist = JSON.parse(localStorage.getItem("afriflixWatchlist")) || [];
+
+  watchlist = watchlist.filter(function(movie) {
+    return movie !== movieName;
+  });
+
+  localStorage.setItem("afriflixWatchlist", JSON.stringify(watchlist));
+
   displayWatchlist();
+}
+
+displayWatchlist();
 </script>
 </body>
 </html>
