@@ -326,6 +326,29 @@ function addToWatchlist(movieName) {
     alert(movieName + " is already in your watchlist.");
   }
 }
+ function displayWatchlist() {
+  let watchlist = JSON.parse(localStorage.getItem("afriflixWatchlist")) || [];
+  let watchlistMovies = document.getElementById("watchlistMovies");
+
+  if (watchlist.length === 0) {
+    watchlistMovies.innerHTML = "<p>Your watchlist is empty ❤️</p>";
+    return;
+  }
+
+  watchlistMovies.innerHTML = "";
+
+  watchlist.forEach(function(movieName) {
+    watchlistMovies.innerHTML += `
+      <div class="movie">
+        <div class="movie-info">
+          <h3>${movieName}</h3>
+          <p>Saved to your watchlist ❤️</p>
+        </div>
+      </div>
+    `;
+  });
+ } 
+  displayWatchlist();
 </script>
 </body>
 </html>
