@@ -311,6 +311,18 @@ footer {
   <p>© 2026 AfriFlix</p>
   <p>Celebrating African Cinema 🌍</p>
 </footer>
+<script>
+function addToWatchlist(movieName) {
+  let watchlist = JSON.parse(localStorage.getItem("afriflixWatchlist")) || [];
 
+  if (!watchlist.includes(movieName)) {
+    watchlist.push(movieName);
+    localStorage.setItem("afriflixWatchlist", JSON.stringify(watchlist));
+    alert(movieName + " added to your watchlist ❤️");
+  } else {
+    alert(movieName + " is already in your watchlist.");
+  }
+}
+</script>
 </body>
 </html>
