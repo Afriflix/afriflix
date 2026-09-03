@@ -182,11 +182,12 @@ footer {
 
 <header>
   <div class="logo">Afri<span>Flix</span></div>
-
-  <input
+<input
+    id="searchInput"
     class="search"
     type="search"
     placeholder="Search movies...">
+  
 </header>
 
 <section class="hero">
@@ -361,7 +362,20 @@ function addToWatchlist(movieName) {
 
   displayWatchlist();
 }
+document.getElementById("searchInput").addEventListener("input", function() {
+  let searchText = this.value.toLowerCase().trim();
+  let movies = document.querySelectorAll(".movies .movie");
 
+  movies.forEach(function(movie) {
+    let title = movie.querySelector("h3").textContent.toLowerCase();
+
+    if (title.includes(searchText)) {
+      movie.style.display = "";
+    } else {
+      movie.style.display = "none";
+    }
+  });
+});
 displayWatchlist();
 </script>
 </body>
