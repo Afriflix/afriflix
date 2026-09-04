@@ -225,7 +225,7 @@ footer {
       and unforgettable entertainment on AfriFlix.
     </p>
 
-    <button class="watch-btn">▶ WATCH NOW</button>
+    <button id="watchNowBtn" class="watch-btn">▶ WATCH NOW</button>
   </div>
 </section>
 
@@ -246,7 +246,7 @@ footer {
 
 <a href="#watchlist" class="watchlist-btn">❤️ My Watchlist</a>
   <section id="watchlist" class="section">
-  <h2>❤️ My Watchlist</h2>
+  <h2 id="watchlistTitle">❤️ My Watchlist</h2>
   <div id="watchlistMovies" class="movie-grid"></div>
 </section>
 
@@ -360,7 +360,7 @@ footer {
 
 <footer>
   <p>© 2026 AfriFlix</p>
-  <p>Celebrating African Cinema 🌍</p>
+  <p id="footerText">Celebrating African Cinema 🌍</p>
 </footer>
 <script>
 function addToWatchlist(movieName) {
@@ -451,6 +451,10 @@ document.getElementById("dramaBtn").textContent = "Drame";
     document.getElementById("trendingTitle").textContent = "🔥 Tendances";
     document.getElementById("latestTitle").textContent = "🎬 Derniers films";
     document.getElementById("cinemaBadge").textContent = "🌍 CINÉMA AFRICAIN";
+    document.getElementById("watchNowBtn").textContent = "▶ REGARDER MAINTENANT";
+    document.getElementById("watchlistTitle").textContent = "❤️ Ma liste";
+    document.getElementById("searchInput").placeholder = "Rechercher des films...";
+    document.getElementById("footerText").textContent = "Célébrons le cinéma africain 🌍";
     document.getElementById("trendingSubtitle").textContent = "Les films que tout le monde regarde en ce moment";
   } else {
     heroTitle.textContent = "Stories That Move You";
@@ -466,6 +470,10 @@ document.getElementById("dramaBtn").textContent = "Drama";
     document.getElementById("trendingTitle").textContent = "🔥 Trending Now";
     document.getElementById("latestTitle").textContent = "🎬 Latest Movies";
     document.getElementById("cinemaBadge").textContent = "🌍 AFRICAN CINEMA";
+    document.getElementById("watchNowBtn").textContent = "▶ WATCH NOW";
+    document.getElementById("watchlistTitle").textContent = "❤️ My Watchlist";
+    document.getElementById("searchInput").placeholder = "Search movies...";
+    document.getElementById("footerText").textContent = "Celebrating African Cinema 🌍";
     document.getElementById("trendingSubtitle").textContent = "The movies everyone is watching right now";
     
   }
