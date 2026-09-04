@@ -250,7 +250,7 @@ footer {
   <div id="watchlistMovies" class="movie-grid"></div>
 </section>
 
-  <h2 class="section-title">🔥 Trending Now</h2>
+  <h2 id="trendingTitle" class="section-title">🔥 Trending Now</h2>
 <p style="color:#999; margin-top:-10px; margin-bottom:20px;">
   The movies everyone is watching right now
 </p>
@@ -448,6 +448,7 @@ document.getElementById("dramaBtn").textContent = "Drame";
     document.getElementById("romanceBtn").textContent = "Romance";
     document.getElementById("horrorBtn").textContent = "Horreur";
     document.getElementById("allBtn").textContent = "Tous";
+    document.getElementById("trendingTitle").textContent = "🔥 Tendances";
   } else {
     heroTitle.textContent = "Stories That Move You";
     heroText.textContent =
@@ -459,6 +460,7 @@ document.getElementById("dramaBtn").textContent = "Drama";
     document.getElementById("romanceBtn").textContent = "Romance";
     document.getElementById("horrorBtn").textContent = "Horror";
     document.getElementById("allBtn").textContent = "All";
+    document.getElementById("trendingTitle").textContent = "🔥 Trending Now";
   }
   }
 displayWatchlist();
