@@ -216,7 +216,7 @@ footer {
 
 <section class="hero">
   <div class="hero-content">
-    <div class="badge">🌍 AFRICAN CINEMA</div>
+    <div id="cinemaBadge" class="badge">🌍 AFRICAN CINEMA</div>
 
     <h1>Stories That Move You</h1>
 
@@ -251,7 +251,7 @@ footer {
 </section>
 
   <h2 id="trendingTitle" class="section-title">🔥 Trending Now</h2>
-<p style="color:#999; margin-top:-10px; margin-bottom:20px;">
+<p id="trendingSubtitle" style="color:#999; margin-top:-10px; margin-bottom:20px;">
   The movies everyone is watching right now
 </p>
   <div class="movies">
@@ -449,6 +449,9 @@ document.getElementById("dramaBtn").textContent = "Drame";
     document.getElementById("horrorBtn").textContent = "Horreur";
     document.getElementById("allBtn").textContent = "Tous";
     document.getElementById("trendingTitle").textContent = "🔥 Tendances";
+    document.getElementById("latestTitle").textContent = "🎬 Derniers films";
+    document.getElementById("cinemaBadge").textContent = "🌍 CINÉMA AFRICAIN";
+    document.getElementById("trendingSubtitle").textContent = "Les films que tout le monde regarde en ce moment";
   } else {
     heroTitle.textContent = "Stories That Move You";
     heroText.textContent =
@@ -461,6 +464,10 @@ document.getElementById("dramaBtn").textContent = "Drama";
     document.getElementById("horrorBtn").textContent = "Horror";
     document.getElementById("allBtn").textContent = "All";
     document.getElementById("trendingTitle").textContent = "🔥 Trending Now";
+    document.getElementById("latestTitle").textContent = "🎬 Latest Movies";
+    document.getElementById("cinemaBadge").textContent = "🌍 AFRICAN CINEMA";
+    document.getElementById("trendingSubtitle").textContent = "The movies everyone is watching right now";
+    
   }
   }
 displayWatchlist();
