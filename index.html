@@ -39,7 +39,19 @@ header {
 .logo span {
   color: #e50914;
 }
+.language {
+  display: flex;
+  gap: 5px;
+}
 
+.language button {
+  background: #1b1b1b;
+  color: white;
+  border: 1px solid #333;
+  padding: 7px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
 .search {
   flex: 1;
   max-width: 400px;
@@ -190,6 +202,10 @@ footer {
 
 <header>
   <div class="logo">Afri<span>Flix</span></div>
+  <div class="language">
+  <button onclick="setLanguage('en')">🇬🇧 EN</button>
+  <button onclick="setLanguage('fr')">🇫🇷 FR</button>
+  </div>
 <input
     id="searchInput"
     class="search"
@@ -417,6 +433,16 @@ document.getElementById("searchInput").addEventListener("input", function() {
     }
   });
   }
+  function setLanguage(language) {
+  if (language === "fr") {
+    document.querySelector(".hero h1").textContent = "Des histoires qui vous touchent";
+    document.querySelector(".hero p").textContent =
+      "Découvrez le meilleur du cinéma africain et des histoires inoubliables sur AfriFlix.";
+    document.querySelector(".section-title").textContent = "Parcourir les catégories";
+  } else {
+    location.reload();
+  }
+        }
 displayWatchlist();
 </script>
 </body>
