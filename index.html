@@ -231,7 +231,7 @@ footer {
 
 <section>
 
-  <h2 class="section-title">Browse Categories</h2>
+  <h2 id="categoriesTitle" class="section-title">Browse Categories</h2>
 
   <div class="category">
     <button id="allBtn" onclick="filterMovies('All')">All</button>
@@ -434,15 +434,21 @@ document.getElementById("searchInput").addEventListener("input", function() {
   });
   }
   function setLanguage(language) {
+  const heroTitle = document.querySelector(".hero h1");
+  const heroText = document.querySelector(".hero p");
+
   if (language === "fr") {
-    document.querySelector(".hero h1").textContent = "Des histoires qui vous touchent";
-    document.querySelector(".hero p").textContent =
+    heroTitle.textContent = "Des histoires qui vous touchent";
+    heroText.textContent =
       "Découvrez le meilleur du cinéma africain et des histoires inoubliables sur AfriFlix.";
-    document.querySelector(".section-title").textContent = "Parcourir les catégories";
+    document.getElementById("categoriesTitle").textContent = "Parcourir les catégories";
   } else {
-    location.reload();
+    heroTitle.textContent = "Stories That Move You";
+    heroText.textContent =
+      "Discover amazing African cinema, exciting stories and unforgettable entertainment on AfriFlix.";
+    document.getElementById("categoriesTitle").textContent = "Browse Categories";
   }
-        }
+  }
 displayWatchlist();
 </script>
 </body>
