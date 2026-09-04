@@ -210,12 +210,12 @@ footer {
   <h2 class="section-title">Browse Categories</h2>
 
   <div class="category">
-    <button>All</button>
-    <button>Action</button>
-    <button>Drama</button>
-    <button>Comedy</button>
-    <button>Romance</button>
-    <button>Horror</button>
+    <button id="allBtn" onclick="filterMovies('All')">All</button>
+<button id="actionBtn" onclick="filterMovies('Action')">Action</button>
+<button id="dramaBtn" onclick="filterMovies('Drama')">Drama</button>
+<button id="comedyBtn" onclick="filterMovies('Comedy')">Comedy</button>
+<button id="romanceBtn" onclick="filterMovies('Romance')">Romance</button>
+<button id="horrorBtn" onclick="filterMovies('Horror')">Horror</button>
   </div>
 
 </section>
@@ -229,7 +229,7 @@ footer {
   <h2 class="section-title">🔥 Trending</h2>
 
   <div class="movies">
-    <a href="movie.html" class="movie">
+    <a href="movie.html" class="movie" data-category="Drama">
       <img src="https://picsum.photos/400/600?random=101">
       <div class="movie-info">
         <h3>Kingdom Rising</h3>
@@ -239,7 +239,7 @@ footer {
     </a>
     
 
-    <a href="last-journey.html" class="movie">
+    <a href="last-journey.html" class="movie" data-category="Action">
   <img src="https://picsum.photos/400/600?random=102">
   <div class="movie-info">
     <h3>The Last Journey</h3>
@@ -247,7 +247,7 @@ footer {
     <button onclick="event.preventDefault(); event.stopPropagation(); addToWatchlist('The Last Journey')" class="heart-btn">❤️</button>
   </div>
 </a>
-<a href="city-of-dreams.html" class="movie">
+<a href="city-of-dreams.html" class="movie" data-category="Drama">
   <img src="https://picsum.photos/400/600?random=103">
   <div class="movie-info">
     <h3>City of Dreams</h3>
@@ -257,7 +257,7 @@ footer {
 </a>
     
 
-    <a href="movie.html" class="movie">
+    <a href="movie.html" class="movie" data-category="Horror">
   <img src="https://picsum.photos/400/600?random=104">
   <div class="movie-info">
     <h3>Hidden Truth</h3>
@@ -276,7 +276,7 @@ footer {
 
   <div class="movies">
 
-    <div class="movie">
+    <div class="movie" data-category="Action">
       <img src="https://picsum.photos/400/600?random=105">
       <div class="movie-info">
         <h3>Beyond The Storm</h3>
@@ -284,7 +284,7 @@ footer {
       </div>
     </div>
 
-    <div class="movie">
+    <div class="movie" data-category="Romance">
       <img src="https://picsum.photos/400/600?random=106">
       <div class="movie-info">
         <h3>Broken Promise</h3>
@@ -292,7 +292,7 @@ footer {
       </div>
     </div>
 
-    <div class="movie">
+    <div class="movie" data-category="Horror">
       <img src="https://picsum.photos/400/600?random=107">
       <div class="movie-info">
         <h3>Village Secrets</h3>
@@ -300,7 +300,7 @@ footer {
       </div>
     </div>
 
-    <div class="movie">
+    <div class="movie" data-category="Action">
       <img src="https://picsum.photos/400/600?random=108">
       <div class="movie-info">
         <h3>Final Mission</h3>
@@ -376,6 +376,17 @@ document.getElementById("searchInput").addEventListener("input", function() {
     }
   });
 });
+  function filterMovies(category) {
+  let movies = document.querySelectorAll(".movie[data-category]");
+
+  movies.forEach(function(movie) {
+    if (category === "All" || movie.dataset.category === category) {
+      movie.style.display = "";
+    } else {
+      movie.style.display = "none";
+    }
+  });
+  }
 displayWatchlist();
 </script>
 </body>
