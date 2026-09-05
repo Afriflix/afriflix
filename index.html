@@ -261,9 +261,9 @@ footer {
       <div style="color:#ffcc00; font-size:12px; font-weight:bold; margin-bottom:6px;">
   🔥 TRENDING
       </div>
-        <h3>Kingdom Rising</h3>
+       <h3 id="kingdomTitle">Kingdom Rising</h3>
         <div class="rating">⭐⭐⭐⭐⭐ <span>4.8/5</span></div>
-        <p>Drama • 2026</p>
+        <p id="kingdomGenre">Drama • 2026</p>
         <button onclick="event.preventDefault(); event.stopPropagation(); addToWatchlist('Kingdom Rising')" class="heart-btn">❤️</button>
       </div>
     </a>
@@ -275,9 +275,9 @@ footer {
     <div style="color:#ffcc00; font-size:12px; font-weight:bold; margin-bottom:6px;">
   🔥 TRENDING
     </div>
-    <h3>The Last Journey</h3>
+    <h3 id="lastJourneyTitle">The Last Journey</h3>
     <div class="rating">⭐⭐⭐⭐⭐ <span>4.7/5</span></div>
-    <p>Adventure • 2026</p>
+    <p id="lastJourneyGenre">Adventure • 2026</p>
     <button onclick="event.preventDefault(); event.stopPropagation(); addToWatchlist('The Last Journey')" class="heart-btn">❤️</button>
   </div>
 </a>
@@ -287,9 +287,9 @@ footer {
     <div style="color:#ffcc00; font-size:12px; font-weight:bold; margin-bottom:6px;">
   🔥 TRENDING
     </div>
-    <h3>City of Dreams</h3>
+    <h3 id="cityDreamsTitle">City of Dreams</h3>
     <div class="rating">⭐⭐⭐⭐⭐ <span>4.6/5</span></div>
-    <p>Drama • 2026</p>
+    <p id="cityDreamsGenre">Drama • 2026</p>
     <button onclick="event.preventDefault(); event.stopPropagation(); addToWatchlist('City of Dreams')" class="heart-btn">❤️</button>
   </div>
 </a>
@@ -301,9 +301,9 @@ footer {
     <div style="color:#ffcc00; font-size:12px; font-weight:bold; margin-bottom:6px;">
   🔥 TRENDING
     </div>
-    <h3>Hidden Truth</h3>
+    <h3 id="hiddenTruthTitle">Hidden Truth</h3>
     <div class="rating">⭐⭐⭐⭐⭐ <span>4.5/5</span></div>
-    <p>Thriller • 2026</p>
+    <p id="hiddenTruthGenre">Thriller • 2026</p>
     <button onclick="event.preventDefault(); event.stopPropagation(); addToWatchlist('Hidden Truth')" class="heart-btn">❤️</button>
   </div>
 </a>
@@ -321,36 +321,36 @@ footer {
     <div class="movie" data-category="Action">
       <img src="https://picsum.photos/400/600?random=105">
       <div class="movie-info">
-        <h3>Beyond The Storm</h3>
+        <h3 id="beyondStormTitle">Beyond The Storm</h3>
         <div class="rating">⭐⭐⭐⭐⭐ <span>4.4/5</span></div>
-        <p>Action • 2026</p>
+        <p id="beyondStormGenre">Action • 2026</p>
       </div>
     </div>
 
     <div class="movie" data-category="Romance">
       <img src="https://picsum.photos/400/600?random=106">
       <div class="movie-info">
-        <h3>Broken Promise</h3>
+        <h3 id="brokenPromiseTitle">Broken Promise</h3>
         <div class="rating">⭐⭐⭐⭐⭐ <span>4.3/5</span></div>
-        <p>Romance • 2026</p>
+        <p id="brokenPromiseGenre">Romance • 2026</p>
       </div>
     </div>
 
     <div class="movie" data-category="Horror">
       <img src="https://picsum.photos/400/600?random=107">
       <div class="movie-info">
-        <h3>Village Secrets</h3>
+        <h3 id="villageSecretsTitle">Village Secrets</h3>
         <div class="rating">⭐⭐⭐⭐⭐ <span>4.2/5</span></div>
-        <p>Mystery • 2026</p>
+        <p id="villageSecretsGenre">Mystery • 2026</p>
       </div>
     </div>
 
     <div class="movie" data-category="Action">
       <img src="https://picsum.photos/400/600?random=108">
       <div class="movie-info">
-        <h3>Final Mission</h3>
+        <h3 id="finalMissionTitle">Final Mission</h3>
         <div class="rating">⭐⭐⭐⭐⭐ <span>4.5/5</span></div>
-        <p>Action • 2026</p>
+        <p id="finalMissionGenre">Action • 2026</p>
       </div>
     </div>
 
@@ -455,6 +455,22 @@ document.getElementById("dramaBtn").textContent = "Drame";
     document.getElementById("watchlistTitle").textContent = "❤️ Ma liste";
     document.getElementById("searchInput").placeholder = "Rechercher des films...";
     document.getElementById("footerText").textContent = "Célébrons le cinéma africain 🌍";
+    document.getElementById("kingdomGenre").textContent = "Drame • 2026";
+    document.getElementById("lastJourneyGenre").textContent = "Aventure • 2026";
+    document.getElementById("cityDreamsGenre").textContent = "Drame • 2026";
+    document.getElementById("hiddenTruthGenre").textContent = "Thriller • 2026";
+    document.getElementById("beyondStormGenre").textContent = "Action • 2026";
+    document.getElementById("brokenPromiseGenre").textContent = "Romance • 2026";
+    document.getElementById("villageSecretsGenre").textContent = "Mystère • 2026";
+    document.getElementById("finalMissionGenre").textContent = "Mission finale • 2026";
+    document.getElementById("kingdomTitle").textContent = "Royaume en ascension";
+    document.getElementById("beyondStormTitle").textContent = "Au-delà de la tempête";
+    document.getElementById("brokenPromiseTitle").textContent = "Promesse brisée";
+    document.getElementById("villageSecretsTitle").textContent = "Secrets du village";
+    document.getElementById("finalMissionTitle").textContent = "Mission finale";
+    document.getElementById("lastJourneyTitle").textContent = "Le dernier voyage";
+    document.getElementById("cityDreamsTitle").textContent = "La ville des rêves";
+    document.getElementById("hiddenTruthTitle").textContent = "La vérité cachée";
     document.getElementById("trendingSubtitle").textContent = "Les films que tout le monde regarde en ce moment";
   } else {
     heroTitle.textContent = "Stories That Move You";
@@ -474,6 +490,22 @@ document.getElementById("dramaBtn").textContent = "Drama";
     document.getElementById("watchlistTitle").textContent = "❤️ My Watchlist";
     document.getElementById("searchInput").placeholder = "Search movies...";
     document.getElementById("footerText").textContent = "Celebrating African Cinema 🌍";
+    document.getElementById("kingdomGenre").textContent = "Drama • 2026";
+    document.getElementById("lastJourneyGenre").textContent = "Adventure • 2026";
+    document.getElementById("cityDreamsGenre").textContent = "Drama • 2026";
+    document.getElementById("hiddenTruthGenre").textContent = "Thriller • 2026";
+    document.getElementById("beyondStormGenre").textContent = "Action • 2026";
+    document.getElementById("brokenPromiseGenre").textContent = "Romance • 2026";
+    document.getElementById("villageSecretsGenre").textContent = "Mystery • 2026";
+    document.getElementById("finalMissionGenre").textContent = "Action • 2026";
+    document.getElementById("kingdomTitle").textContent = "Kingdom Rising";
+    document.getElementById("beyondStormTitle").textContent = "Beyond The Storm";
+    document.getElementById("brokenPromiseTitle").textContent = "Broken Promise";
+    document.getElementById("villageSecretsTitle").textContent = "Village Secrets";
+    document.getElementById("finalMissionTitle").textContent = "Final Mission";
+    document.getElementById("lastJourneyTitle").textContent = "The Last Journey";
+    document.getElementById("cityDreamsTitle").textContent = "City of Dreams";
+    document.getElementById("hiddenTruthTitle").textContent = "Hidden Truth";
     document.getElementById("trendingSubtitle").textContent = "The movies everyone is watching right now";
     
   }
