@@ -197,6 +197,40 @@ footer {
     font-size: 36px;
   }
 }
+  /* your existing CSS */
+
+#authModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#authModal > div {
+  background: #151515;
+  padding: 25px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+#authModal input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+#authModal button {
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+}
+
 </style>
 </head>
 
