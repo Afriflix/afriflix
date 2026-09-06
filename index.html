@@ -562,7 +562,29 @@ document.getElementById("searchInput").addEventListener("input", function() {
   function showAuth() {
   document.getElementById("authModal").style.display = "flex";
 }
+async function signUp() {
+  const email = document.getElementById("authEmail").value;
+  const password = document.getElementById("authPassword").value;
+  const fullName = document.getElementById("authName").value;
 
+  const { data, error } = await supabaseClient.auth.signUp({
+    email: email,
+    password: password,
+    options: {
+      data: {
+        full_name: fullName
+      }
+    }
+  });
+
+  if (error) {
+    document.getElementById("authMessage").textContent = error.message;
+    return;
+  }
+
+  document.getElementById("authMessage").textContent =
+    "Account created successfully! 🎉";
+}
 function closeAuth() {
   document.getElementById("authModal").style.display = "none";
 }
