@@ -208,6 +208,7 @@ footer {
   <button onclick="setLanguage('en')">🇬🇧 EN</button>
   <button onclick="setLanguage('fr')">🇫🇷 FR</button>
   </div>
+  <button onclick="showAuth()">Sign In</button>
 <input
     id="searchInput"
     class="search"
@@ -524,6 +525,13 @@ document.getElementById("searchInput").addEventListener("input", function() {
     document.getElementById("finalMissionGenre").textContent = "Action • 2026";
   }
       }
+  function showAuth() {
+  document.getElementById("authModal").style.display = "flex";
+}
+
+function closeAuth() {
+  document.getElementById("authModal").style.display = "none";
+}
 displayWatchlist();
 </script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
@@ -535,5 +543,21 @@ const supabaseClient = supabase.createClient(
   SUPABASE_KEY
 );
   </script>
+  <div id="authModal" style="display:none;">
+  <div>
+    <h2>AfriFlix Account</h2>
+
+    <input id="authEmail" type="email" placeholder="Email">
+    <input id="authPassword" type="password" placeholder="Password">
+
+    <input id="authName" type="text" placeholder="Full name">
+
+    <button onclick="signUp()">Create Account</button>
+    <button onclick="signIn()">Sign In</button>
+    <button onclick="closeAuth()">Close</button>
+
+    <p id="authMessage"></p>
+  </div>
+  </div>
 </body>
 </html>
