@@ -525,6 +525,15 @@ document.getElementById("searchInput").addEventListener("input", function() {
   }
       }
 displayWatchlist();
-</script>
+</script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+const SUPABASE_URL = "https://caufbkwgwbudwpqhdgqa.supabase.co";
+const SUPABASE_KEY = "sb_publishable_dmWG86ick8T5Z3lUV9Fiwg_tM4mpffo";
+
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+  </script>
 </body>
 </html>
