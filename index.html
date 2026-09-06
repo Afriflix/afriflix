@@ -437,24 +437,43 @@ document.getElementById("searchInput").addEventListener("input", function() {
   const heroTitle = document.querySelector(".hero h1");
   const heroText = document.querySelector(".hero p");
 
+  function setLanguage(language) {
+  const heroTitle = document.querySelector(".hero h1");
+  const heroText = document.querySelector(".hero p");
+
   if (language === "fr") {
+
     heroTitle.textContent = "Des histoires qui vous touchent";
-    heroText.textContent =
-      "Découvrez le meilleur du cinéma africain et des histoires inoubliables sur AfriFlix.";
+    heroText.textContent = "Découvrez le meilleur du cinéma africain et des histoires inoubliables sur AfriFlix.";
+
     document.getElementById("categoriesTitle").textContent = "Parcourir les catégories";
+    document.getElementById("allBtn").textContent = "Tous";
     document.getElementById("actionBtn").textContent = "Action";
-document.getElementById("dramaBtn").textContent = "Drame";
+    document.getElementById("dramaBtn").textContent = "Drame";
     document.getElementById("comedyBtn").textContent = "Comédie";
     document.getElementById("romanceBtn").textContent = "Romance";
     document.getElementById("horrorBtn").textContent = "Horreur";
-    document.getElementById("allBtn").textContent = "Tous";
+
     document.getElementById("trendingTitle").textContent = "🔥 Tendances";
+    document.getElementById("trendingSubtitle").textContent = "Les films que tout le monde regarde en ce moment";
     document.getElementById("latestTitle").textContent = "🎬 Derniers films";
+
     document.getElementById("cinemaBadge").textContent = "🌍 CINÉMA AFRICAIN";
     document.getElementById("watchNowBtn").textContent = "▶ REGARDER MAINTENANT";
     document.getElementById("watchlistTitle").textContent = "❤️ Ma liste";
     document.getElementById("searchInput").placeholder = "Rechercher des films...";
     document.getElementById("footerText").textContent = "Célébrons le cinéma africain 🌍";
+
+    document.getElementById("kingdomTitle").textContent = "Royaume en ascension";
+    document.getElementById("lastJourneyTitle").textContent = "Le dernier voyage";
+    document.getElementById("cityDreamsTitle").textContent = "La ville des rêves";
+    document.getElementById("hiddenTruthTitle").textContent = "La vérité cachée";
+
+    document.getElementById("beyondStormTitle").textContent = "Au-delà de la tempête";
+    document.getElementById("brokenPromiseTitle").textContent = "Promesse brisée";
+    document.getElementById("villageSecretsTitle").textContent = "Secrets du village";
+    document.getElementById("finalMissionTitle").textContent = "Mission finale";
+
     document.getElementById("kingdomGenre").textContent = "Drame • 2026";
     document.getElementById("lastJourneyGenre").textContent = "Aventure • 2026";
     document.getElementById("cityDreamsGenre").textContent = "Drame • 2026";
@@ -463,33 +482,40 @@ document.getElementById("dramaBtn").textContent = "Drame";
     document.getElementById("brokenPromiseGenre").textContent = "Romance • 2026";
     document.getElementById("villageSecretsGenre").textContent = "Mystère • 2026";
     document.getElementById("finalMissionGenre").textContent = "Mission finale • 2026";
-    document.getElementById("kingdomTitle").textContent = "Royaume en ascension";
-    document.getElementById("beyondStormTitle").textContent = "Au-delà de la tempête";
-    document.getElementById("brokenPromiseTitle").textContent = "Promesse brisée";
-    document.getElementById("villageSecretsTitle").textContent = "Secrets du village";
-    document.getElementById("finalMissionTitle").textContent = "Mission finale";
-    document.getElementById("lastJourneyTitle").textContent = "Le dernier voyage";
-    document.getElementById("cityDreamsTitle").textContent = "La ville des rêves";
-    document.getElementById("hiddenTruthTitle").textContent = "La vérité cachée";
-    document.getElementById("trendingSubtitle").textContent = "Les films que tout le monde regarde en ce moment";
+
   } else {
+
     heroTitle.textContent = "Stories That Move You";
-    heroText.textContent =
-      "Discover amazing African cinema, exciting stories and unforgettable entertainment on AfriFlix.";
+    heroText.textContent = "Discover amazing African cinema, exciting stories and unforgettable entertainment on AfriFlix.";
+
     document.getElementById("categoriesTitle").textContent = "Browse Categories";
+    document.getElementById("allBtn").textContent = "All";
     document.getElementById("actionBtn").textContent = "Action";
-document.getElementById("dramaBtn").textContent = "Drama";
+    document.getElementById("dramaBtn").textContent = "Drama";
     document.getElementById("comedyBtn").textContent = "Comedy";
     document.getElementById("romanceBtn").textContent = "Romance";
     document.getElementById("horrorBtn").textContent = "Horror";
-    document.getElementById("allBtn").textContent = "All";
+
     document.getElementById("trendingTitle").textContent = "🔥 Trending Now";
+    document.getElementById("trendingSubtitle").textContent = "The movies everyone is watching right now";
     document.getElementById("latestTitle").textContent = "🎬 Latest Movies";
+
     document.getElementById("cinemaBadge").textContent = "🌍 AFRICAN CINEMA";
     document.getElementById("watchNowBtn").textContent = "▶ WATCH NOW";
     document.getElementById("watchlistTitle").textContent = "❤️ My Watchlist";
     document.getElementById("searchInput").placeholder = "Search movies...";
     document.getElementById("footerText").textContent = "Celebrating African Cinema 🌍";
+
+    document.getElementById("kingdomTitle").textContent = "Kingdom Rising";
+    document.getElementById("lastJourneyTitle").textContent = "The Last Journey";
+    document.getElementById("cityDreamsTitle").textContent = "City of Dreams";
+    document.getElementById("hiddenTruthTitle").textContent = "Hidden Truth";
+
+    document.getElementById("beyondStormTitle").textContent = "Beyond The Storm";
+    document.getElementById("brokenPromiseTitle").textContent = "Broken Promise";
+    document.getElementById("villageSecretsTitle").textContent = "Village Secrets";
+    document.getElementById("finalMissionTitle").textContent = "Final Mission";
+
     document.getElementById("kingdomGenre").textContent = "Drama • 2026";
     document.getElementById("lastJourneyGenre").textContent = "Adventure • 2026";
     document.getElementById("cityDreamsGenre").textContent = "Drama • 2026";
@@ -498,18 +524,8 @@ document.getElementById("dramaBtn").textContent = "Drama";
     document.getElementById("brokenPromiseGenre").textContent = "Romance • 2026";
     document.getElementById("villageSecretsGenre").textContent = "Mystery • 2026";
     document.getElementById("finalMissionGenre").textContent = "Action • 2026";
-    document.getElementById("kingdomTitle").textContent = "Kingdom Rising";
-    document.getElementById("beyondStormTitle").textContent = "Beyond The Storm";
-    document.getElementById("brokenPromiseTitle").textContent = "Broken Promise";
-    document.getElementById("villageSecretsTitle").textContent = "Village Secrets";
-    document.getElementById("finalMissionTitle").textContent = "Final Mission";
-    document.getElementById("lastJourneyTitle").textContent = "The Last Journey";
-    document.getElementById("cityDreamsTitle").textContent = "City of Dreams";
-    document.getElementById("hiddenTruthTitle").textContent = "Hidden Truth";
-    document.getElementById("trendingSubtitle").textContent = "The movies everyone is watching right now";
-    
   }
-  }
+      }
 displayWatchlist();
 </script>
 </body>
