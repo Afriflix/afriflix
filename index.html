@@ -442,7 +442,11 @@ function addToWatchlist(movieName) {
   });
 
   localStorage.setItem("afriflixWatchlist", JSON.stringify(watchlist));
-
+ supabaseClient.auth.getSession().then(function(result) {
+  if (result.data.session) {
+    document.getElementById("authButton").textContent = "My Account";
+  }
+});
   displayWatchlist();
 }
 document.getElementById("searchInput").addEventListener("input", function() {
