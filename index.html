@@ -630,6 +630,11 @@ const supabaseClient = supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
+  supabaseClient.auth.getSession().then(function(result) {
+  if (result.data.session) {
+    document.getElementById("authButton").textContent = "My Account";
+  }
+});
   </script>
   <div id="authModal" style="display:none;">
   <div>
