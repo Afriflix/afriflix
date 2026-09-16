@@ -230,7 +230,30 @@ footer {
   margin: 5px;
   cursor: pointer;
 }
+#accountPanel {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
 
+#accountPanel > div {
+  background: #151515;
+  padding: 25px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+#accountPanel button {
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+}
 </style>
 </head>
 
