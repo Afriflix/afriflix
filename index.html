@@ -652,5 +652,16 @@ const supabaseClient = supabase.createClient(
     <p id="authMessage"></p>
   </div>
   </div>
+  <div id="accountPanel" style="display:none;">
+  <div>
+    <h2>My AfriFlix Account 👤</h2>
+
+    <p id="accountName"></p>
+    <p id="accountEmail"></p>
+
+    <button onclick="signOut()">Sign Out</button>
+    <button onclick="closeAccount()">Close</button>
+  </div>
+  </div>
 </body>
 </html>
