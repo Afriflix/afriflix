@@ -566,7 +566,14 @@ document.getElementById("searchInput").addEventListener("input", function() {
   function handleAuthButton() {
   supabaseClient.auth.getSession().then(function(result) {
     if (result.data.session) {
-      alert("Welcome to your AfriFlix account! 🎬");
+      document.getElementById("accountPanel").style.display = "flex";
+      
+      document.getElementById("accountEmail").textContent =
+        "Email: " + result.data.session.user.email;
+
+      document.getElementById("accountName").textContent =
+        "Welcome, " +
+        (result.data.session.user.user_metadata.full_name || "AfriFlix User");
     } else {
       showAuth();
     }
