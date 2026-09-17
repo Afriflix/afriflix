@@ -654,7 +654,9 @@ document.getElementById("authButton").textContent = "My Account";
     alert(error.message);
     return;
   }
-
+function closeAccount() {
+  document.getElementById("accountPanel").style.display = "none";
+}
   document.getElementById("accountPanel").style.display = "none";
   document.getElementById("authButton").textContent = "Sign In";
 }
