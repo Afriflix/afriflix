@@ -647,6 +647,17 @@ async function signUp() {
 
 document.getElementById("authButton").textContent = "My Account";
   }
+  async function signOut() {
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  document.getElementById("accountPanel").style.display = "none";
+  document.getElementById("authButton").textContent = "Sign In";
+}
 function closeAuth() {
   document.getElementById("authModal").style.display = "none";
 }
