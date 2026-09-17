@@ -696,20 +696,45 @@ const supabaseClient = supabase.createClient(
   </div>
   </div>
   <div id="accountPanel" style="display:none;">
-  <div>
-  <h2>My AfriFlix Account 👤</h2>
+  <div class="account-box">
 
-<h3>👤 Profile</h3>
+    <div class="account-header">
+      <div class="profile-avatar">👤</div>
+      <div>
+        <h2>My Account</h2>
+        <p>Welcome back to AfriFlix</p>
+      </div>
+    </div>
 
-<p id="accountName"></p>
-<p id="accountEmail"></p>
-<p>Account status: <strong>Active</strong> ✅</p>
+    <div class="account-section">
+      <h3>👤 Profile</h3>
 
-<hr>
+      <div class="profile-card">
+        <p id="accountName"></p>
+        <p id="accountEmail"></p>
 
-<button onclick="signOut()">Sign Out</button>
-<button onclick="closeAccount()">Close</button>
+        <div class="account-status">
+          <span>Account Status</span>
+          <strong>Active ✓</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="account-section">
+      <h3>🎬 My Watchlist</h3>
+      <p>Movies you've saved will appear here.</p>
+    </div>
+
+    <div class="account-section">
+      <h3>⭐ My Ratings</h3>
+      <p>Your rated movies will appear here.</p>
+    </div>
+
+    <div class="account-actions">
+      <button onclick="signOut()" class="logout-btn">Sign Out</button>
+      <button onclick="closeAccount()" class="close-btn">Close</button>
+    </div>
+
   </div>
   </div>
-</body>
 </html>
