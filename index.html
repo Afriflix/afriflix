@@ -336,14 +336,29 @@ footer {
   gap: 10px;
   margin-top: 25px;
 }
-
 .account-actions button {
   flex: 1;
-  padding: 12px;
+  padding: 13px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
+  font-size: 14px;
+  transition: .2s ease;
+}
+
+.account-actions button:hover {
+  transform: translateY(-2px);
+}
+
+.logout-btn {
+  background: #e50914 !important;
+  color: white !important;
+}
+
+.close-btn {
+  background: #292929 !important;
+  color: white !important;
 }
 
 .logout-btn {
