@@ -731,22 +731,31 @@ async function addToWatchlist(movieName) {
 
   });
 
- }
-  function removeFromWatchlist(movieName) {
-  let watchlist = JSON.parse(localStorage.getItem("afriflixWatchlist")) || [];
+  async function removeFromWatchlist(movieName) {
 
-  watchlist = watchlist.filter(function(movie) {
-    return movie !== movieName;
-  });
+  const { data: { session } } =
+    await supabaseClient.auth.getSession();
 
-  localStorage.setItem("afriflixWatchlist", JSON.stringify(watchlist));
- supabaseClient.auth.getSession().then(function(result) {
-  if (result.data.session) {
-    document.getElementById("authButton").textContent = "My Account";
+  if (!session) {
+    alert("Please sign in to manage your watchlist.");
+    return;
   }
-});
+
+  const { error } = await supabaseClient
+    .from("watchlist")
+    .delete()
+    .eq("user_id", session.user.id)
+    .eq("movie_name", movieName);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert(movieName + " removed from your cloud watchlist.");
+
   displayWatchlist();
-}
+  }
 document.getElementById("searchInput").addEventListener("input", function() {
   let searchText = this.value.toLowerCase().trim();
   let movies = document.querySelectorAll(".movies .movie");
