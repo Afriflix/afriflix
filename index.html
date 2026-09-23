@@ -729,9 +729,10 @@ async function addToWatchlist(movieName) {
       `;
     }
 
-  });
+    });
+}
 
-  async function removeFromWatchlist(movieName) {
+async function removeFromWatchlist(movieName) {
 
   const { data: { session } } =
     await supabaseClient.auth.getSession();
