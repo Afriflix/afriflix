@@ -632,13 +632,51 @@ async function addToWatchlist(movieName) {
 
   displayWatchlist();
 }
- function displayWatchlist() {
-  let watchlist = JSON.parse(localStorage.getItem("afriflixWatchlist")) || [];
+ async function displayWatchlist() {
 
-  let watchlistMovies = document.getElementById("watchlistMovies");
-  let accountWatchlist = document.getElementById("accountWatchlist");
+  const { data: { session } } =
+    await supabaseClient.auth.getSession();
 
-  if (watchlist.length === 0) {
+  let watchlistMovies =
+    document.getElementById("watchlistMovies");
+
+  let accountWatchlist =
+    document.getElementById("accountWatchlist");
+
+  if (!session) {
+
+    if (watchlistMovies) {
+      watchlistMovies.innerHTML =
+        "<p>Please sign in to view your watchlist.</p>";
+    }
+
+    if (accountWatchlist) {
+      accountWatchlist.innerHTML =
+        "<p>Please sign in to view your watchlist.</p>";
+    }
+
+    return;
+  }
+
+  const { data: watchlist, error } =
+    await supabaseClient
+      .from("watchlist")
+      .select("id, movie_name")
+      .eq("user_id", session.user.id)
+      .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+
+    if (accountWatchlist) {
+      accountWatchlist.innerHTML =
+        "<p>Unable to load your watchlist.</p>";
+    }
+
+    return;
+  }
+
+  if (!watchlist || watchlist.length === 0) {
 
     if (watchlistMovies) {
       watchlistMovies.innerHTML =
@@ -661,17 +699,16 @@ async function addToWatchlist(movieName) {
     accountWatchlist.innerHTML = "";
   }
 
-  watchlist.forEach(function(movieName) {
+  watchlist.forEach(function(movie) {
+
+    const movieName = movie.movie_name;
 
     if (watchlistMovies) {
       watchlistMovies.innerHTML += `
         <div class="movie">
           <div class="movie-info">
             <h3>${movieName}</h3>
-            <p>Saved to your watchlist ❤️</p>
-            <button onclick="removeFromWatchlist('${movieName}')">
-              Remove ❌
-            </button>
+            <p>Saved to your cloud watchlist ❤️</p>
           </div>
         </div>
       `;
@@ -682,7 +719,7 @@ async function addToWatchlist(movieName) {
         <div class="account-watch-item">
           <div>
             <strong>${movieName}</strong>
-            <p>Saved to your watchlist</p>
+            <p>Saved to your cloud watchlist</p>
           </div>
 
           <button onclick="removeFromWatchlist('${movieName}')">
@@ -693,7 +730,8 @@ async function addToWatchlist(movieName) {
     }
 
   });
-}
+
+ }
   function removeFromWatchlist(movieName) {
   let watchlist = JSON.parse(localStorage.getItem("afriflixWatchlist")) || [];
 
