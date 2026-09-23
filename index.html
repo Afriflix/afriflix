@@ -715,19 +715,44 @@ async function addToWatchlist(movieName) {
     }
 
     if (accountWatchlist) {
-      accountWatchlist.innerHTML += `
-        <div class="account-watch-item">
-          <div>
-            <strong>${movieName}</strong>
-            <p>Saved to your cloud watchlist</p>
-          </div>
 
-          <button onclick="removeFromWatchlist('${movieName}')">
-            Remove
-          </button>
-        </div>
-      `;
-    }
+  let movieLink = "#";
+
+  if (movieName === "Kingdom Rising") {
+    movieLink = "movie.html";
+  } else if (movieName === "The Last Journey") {
+    movieLink = "last-journey.html";
+  } else if (movieName === "City of Dreams") {
+    movieLink = "city-of-dreams.html";
+  } else if (movieName === "Hidden Truth") {
+    movieLink = "hidden-truth.html";
+  } else if (movieName === "Beyond The Storm") {
+    movieLink = "beyond-the-storm.html";
+  } else if (movieName === "Broken Promise") {
+    movieLink = "broken-promise.html";
+  } else if (movieName === "Village Secrets") {
+    movieLink = "village-secrets.html";
+  } else if (movieName === "Final Mission") {
+    movieLink = "final-mission.html";
+  }
+
+  accountWatchlist.innerHTML += `
+    <div class="account-watch-item"
+         onclick="window.location.href='${movieLink}'"
+         style="cursor: pointer;">
+
+      <div>
+        <strong>${movieName}</strong>
+        <p>Tap to watch movie 🎬</p>
+      </div>
+
+      <button onclick="event.stopPropagation(); removeFromWatchlist('${movieName}')">
+        Remove
+      </button>
+
+    </div>
+  `;
+  }
 
     });
 }
