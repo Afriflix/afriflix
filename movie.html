@@ -138,6 +138,58 @@
 <a class="back" href="index.html">← Back to AfriFlix</a>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+const SUPABASE_URL = "https://caufbkwgwbudwpqhdgqa.supabase.co";
+const SUPABASE_KEY = "sb_publishable_dmWG86ick8T5Z3lUV9Fiwg_tM4mpffo";
+
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+async function addToWatchlist(movieName) {
+  const { data: { session } } =
+    await supabaseClient.auth.getSession();
+
+  if (!session) {
+    alert("Please sign in to save movies to your account.");
+    return;
+  }
+
+  const { data: existingMovie, error: checkError } =
+    await supabaseClient
+      .from("watchlist")
+      .select("id")
+      .eq("user_id", session.user.id)
+      .eq("movie_name", movieName)
+      .maybeSingle();
+
+  if (checkError) {
+    alert(checkError.message);
+    return;
+  }
+
+  if (existingMovie) {
+    alert(movieName + " is already in your watchlist.");
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("watchlist")
+    .insert({
+      user_id: session.user.id,
+      movie_name: movieName
+    });
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert(movieName + " added to your cloud watchlist ❤️");
+}
+</script>
 </body>
 </html>
