@@ -736,10 +736,13 @@ async function addToWatchlist(movieName) {
     movieLink = "final-mission.html";
   }
 
-  accountWatchlist.innerHTML += `
-    <div class="account-watch-item"
-         onclick="window.location.href='${movieLink}'"
-         style="cursor: pointer;">
+  <div class="account-watch-item"
+     onclick="window.location.href='${movieLink}'"
+     style="cursor: pointer;">
+
+  <img src="https://picsum.photos/seed/${movieName}/100/140"
+       alt="${movieName}"
+       class="account-watch-poster">
 
       <div>
         <strong>${movieName}</strong>
