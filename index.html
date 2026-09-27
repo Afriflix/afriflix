@@ -479,7 +479,7 @@ footer {
   
   <nav class="main-nav">
   <a href="index.html">🏠 Home</a>
-  <a href="#movies">🎬 Movies</a>
+  <a href="#movies" onclick="document.getElementById('movies').scrollIntoView({behavior:'smooth'}); return false;">🎬 Movies</a>
   <a href="#watchlist">❤️ My Watchlist</a>
   <button onclick="handleAuthButton()">👤 My Account</button>
   </nav>
