@@ -198,7 +198,38 @@ footer {
   }
 }
   /* your existing CSS */
+/* AfriFlix Navigation */
 
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 15px;
+  background: #111;
+  border-bottom: 1px solid #222;
+  position: sticky;
+  top: 78px;
+  z-index: 9;
+  overflow-x: auto;
+}
+
+.main-nav a,
+.main-nav button {
+  white-space: nowrap;
+  background: #1b1b1b;
+  color: white;
+  border: 1px solid #333;
+  padding: 9px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.main-nav a:hover,
+.main-nav button:hover {
+  background: #292929;
+}
 #authModal {
   position: fixed;
   inset: 0;
@@ -445,7 +476,14 @@ footer {
     placeholder="Search movies...">
   
 </header>
-
+  
+  <nav class="main-nav">
+  <a href="index.html">🏠 Home</a>
+  <a href="#movies">🎬 Movies</a>
+  <a href="#watchlist">❤️ My Watchlist</a>
+  <button onclick="handleAuthButton()">👤 My Account</button>
+  </nav>
+  
 <section class="hero">
   <div class="hero-content">
     <div id="cinemaBadge" class="badge">🌍 AFRICAN CINEMA</div>
