@@ -907,7 +907,12 @@ document.getElementById("searchInput").addEventListener("input", function() {
     document.getElementById("villageSecretsGenre").textContent = "Mystery • 2026";
     document.getElementById("finalMissionGenre").textContent = "Action • 2026";
   }
-       } 
+       }
+  const savedLanguage = localStorage.getItem("afriflixLanguage");
+
+if (savedLanguage) {
+  setLanguage(savedLanguage);
+}
   
   function handleAuthButton() {
   supabaseClient.auth.getSession().then(function(result) {
