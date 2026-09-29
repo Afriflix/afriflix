@@ -271,5 +271,53 @@ footer {
   Celebrating African Cinema 🌍
 </footer>
 
+<script>
+
+function setLanguage(language) {
+
+  localStorage.setItem("afriflixLanguage", language);
+
+  if (language === "fr") {
+
+    document.getElementById("moviesPageTitle").textContent = "🎬 Films";
+
+    document.getElementById("moviesPageSubtitle").textContent =
+      "Découvrez des films et des histoires sur AfriFlix.";
+
+    document.getElementById("kingdomTitle").textContent = "Royaume en ascension";
+    document.getElementById("lastJourneyTitle").textContent = "Le dernier voyage";
+    document.getElementById("cityDreamsTitle").textContent = "La ville des rêves";
+    document.getElementById("hiddenTruthTitle").textContent = "La vérité cachée";
+    document.getElementById("beyondStormTitle").textContent = "Au-delà de la tempête";
+    document.getElementById("brokenPromiseTitle").textContent = "Promesse brisée";
+    document.getElementById("finalMissionTitle").textContent = "Mission finale";
+    document.getElementById("villageSecretsTitle").textContent = "Secrets du village";
+
+  } else {
+
+    document.getElementById("moviesPageTitle").textContent = "🎬 Movies";
+
+    document.getElementById("moviesPageSubtitle").textContent =
+      "Explore movies and stories on AfriFlix.";
+
+    document.getElementById("kingdomTitle").textContent = "Kingdom Rising";
+    document.getElementById("lastJourneyTitle").textContent = "The Last Journey";
+    document.getElementById("cityDreamsTitle").textContent = "City of Dreams";
+    document.getElementById("hiddenTruthTitle").textContent = "Hidden Truth";
+    document.getElementById("beyondStormTitle").textContent = "Beyond the Storm";
+    document.getElementById("brokenPromiseTitle").textContent = "Broken Promise";
+    document.getElementById("finalMissionTitle").textContent = "Final Mission";
+    document.getElementById("villageSecretsTitle").textContent = "Village Secrets";
+  }
+}
+
+const savedLanguage = localStorage.getItem("afriflixLanguage");
+
+if (savedLanguage) {
+  setLanguage(savedLanguage);
+}
+
+</script>
+
 </body>
-  </html>
+</html>
