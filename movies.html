@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Movies | AfriFlix</title>
+
+<meta name="description" content="Browse African movies and entertainment on AfriFlix.">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* HEADER */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #090909;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #e50914;
+}
+
+/* NAVIGATION */
+.main-nav {
+  display: flex;
+  gap: 10px;
+  padding: 10px 15px;
+  background: #111;
+  border-bottom: 1px solid #222;
+  position: sticky;
+  top: 70px;
+  z-index: 99;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.main-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.main-nav a {
+  white-space: nowrap;
+  background: #1b1b1b;
+  color: white;
+  border: 1px solid #333;
+  padding: 9px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+/* PAGE */
+.page {
+  padding: 25px 15px 50px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.page-title {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.page-subtitle {
+  color: #999;
+  margin-bottom: 25px;
+}
+
+/* MOVIE GRID */
+.movies {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.movie {
+  background: #151515;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: white;
+  transition: transform 0.2s ease;
+}
+
+.movie:hover {
+  transform: translateY(-4px);
+}
+
+.movie img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+.movie-info {
+  padding: 12px;
+}
+
+.movie-info h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.movie-info p {
+  color: #999;
+  font-size: 13px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  color: #777;
+  padding: 30px 15px;
+  border-top: 1px solid #222;
+  margin-top: 30px;
+}
+
+@media (min-width: 700px) {
+  .movies {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .movie img {
+    height: 300px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    Afri<span>Flix</span>
+  </div>
+</header>
+
+<nav class="main-nav">
+  <a href="index.html">🏠 Home</a>
+  <a href="movies.html">🎬 Movies</a>
+  <a href="index.html#watchlist">❤️ My Watchlist</a>
+</nav>
+
+<main class="page">
+
+  <h1 class="page-title">🎬 Movies</h1>
+
+  <p class="page-subtitle">
+    Explore movies and stories on AfriFlix.
+  </p>
+
+  <div class="movies">
+
+    <a href="movie.html" class="movie">
+      <img src="https://picsum.photos/400/600?random=101">
+      <div class="movie-info">
+        <h3>Kingdom Rising</h3>
+        <p>Drama • 2026</p>
+      </div>
+    </a>
+
+    <a href="last-journey.html" class="movie">
+      <img src="https://picsum.photos/400/600?random=102">
+      <div class="movie-info">
+        <h3>The Last Journey</h3>
+        <p>Adventure • 2026</p>
+      </div>
+    </a>
+
+    <a href="city-of-dreams.html" class="movie">
+      <img src="https://picsum.photos/400/600?random=103">
+      <div class="movie-info">
+        <h3>City of Dreams</h3>
+        <p>Drama • 2026</p>
+      </div>
+    </a>
+
+    <a href="hidden-truth.html" class="movie">
+      <img src="https://picsum.photos/400/600?random=104">
+      <div class="movie-info">
+        <h3>Hidden Truth</h3>
+        <p>Thriller • 2026</p>
+      </div>
+    </a>
+
+    <a href="beyond-the-storm.html" class="movie">
+      <img src="https://picsum.photos/400/600?random=105">
+      <div class="movie-info">
+        <h3>Beyond the Storm</h3>
+        <p>Action • 2026</p>
+      </div>
+    </a>
+
+    <a href="broken-promise.html" class="movie">
+      <img src="https://picsum.photos/400/600?random=106">
+      <div class="movie-info">
+        <h3>Broken Promise</h3>
+        <p>Drama • 2026</p>
+      </div>
+    </a>
+
+    <a href="final-mission.html" class="movie">
+      <img src="https://picsum.photos/400/600?random=107">
+      <div class="movie-info">
+        <h3>Final Mission</h3>
+        <p>Action • 2026</p>
+      </div>
+    </a>
+
+    <a href="village-secrets.html" class="movie">
+      <img src="https://picsum.photos/400/600?random=108">
+      <div class="movie-info">
+        <h3>Village Secrets</h3>
+        <p>Drama • 2026</p>
+      </div>
+    </a>
+
+  </div>
+
+</main>
+
+<footer>
+  © 2026 AfriFlix<br>
+  Celebrating African Cinema 🌍
+</footer>
+
+</body>
+  </html>
