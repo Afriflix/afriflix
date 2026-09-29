@@ -354,6 +354,28 @@ if (savedLanguage) {
 }
 
 </script>
+<script>
 
+function searchMovies() {
+
+  const input = document.getElementById("movieSearch").value.toLowerCase();
+
+  const movies = document.querySelectorAll(".movie");
+
+  movies.forEach(movie => {
+
+    const title = movie.querySelector("h3").textContent.toLowerCase();
+
+    if (title.includes(input)) {
+      movie.style.display = "";
+    } else {
+      movie.style.display = "none";
+    }
+
+  });
+
+}
+
+</script>
 </body>
 </html>
