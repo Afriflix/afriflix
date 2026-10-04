@@ -213,6 +213,29 @@ footer {
     "
   >
   </div>
+  <div style="display:flex; gap:8px; overflow-x:auto; margin-bottom:25px; padding-bottom:5px;">
+
+  <button onclick="filterMovies('all')" style="padding:9px 15px; border:none; border-radius:20px; background:#e50914; color:white; white-space:nowrap; cursor:pointer;">
+    All
+  </button>
+
+  <button onclick="filterMovies('Action')" style="padding:9px 15px; border:none; border-radius:20px; background:#1b1b1b; color:white; white-space:nowrap; cursor:pointer;">
+    Action
+  </button>
+
+  <button onclick="filterMovies('Drama')" style="padding:9px 15px; border:none; border-radius:20px; background:#1b1b1b; color:white; white-space:nowrap; cursor:pointer;">
+    Drama
+  </button>
+
+  <button onclick="filterMovies('Romance')" style="padding:9px 15px; border:none; border-radius:20px; background:#1b1b1b; color:white; white-space:nowrap; cursor:pointer;">
+    Romance
+  </button>
+
+  <button onclick="filterMovies('Thriller')" style="padding:9px 15px; border:none; border-radius:20px; background:#1b1b1b; color:white; white-space:nowrap; cursor:pointer;">
+    Thriller
+  </button>
+
+  </div>
 
   <div class="movies">
 
@@ -375,6 +398,23 @@ function searchMovies() {
   });
 
 }
+  function filterMovies(category) {
+
+  const movies = document.querySelectorAll(".movie");
+
+  movies.forEach(movie => {
+
+    const genre = movie.querySelector("p").textContent;
+
+    if (category === "all" || genre.includes(category)) {
+      movie.style.display = "";
+    } else {
+      movie.style.display = "none";
+    }
+
+  });
+
+  }
 
 </script>
 </body>
