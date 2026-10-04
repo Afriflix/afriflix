@@ -382,8 +382,9 @@ if (savedLanguage) {
 </script>
 <script>
 
-}
-  function searchMovies() {
+window.selectedCategory = "all";
+
+function searchMovies() {
   applyMovieFilters();
 }
 
@@ -395,7 +396,7 @@ function filterMovies(category) {
 function applyMovieFilters() {
 
   const input = document.getElementById("movieSearch").value.toLowerCase();
-  const category = window.selectedCategory || "all";
+  const category = window.selectedCategory;
 
   const movies = document.querySelectorAll(".movie");
   const noMoviesMessage = document.getElementById("noMoviesMessage");
@@ -422,21 +423,7 @@ function applyMovieFilters() {
 
   noMoviesMessage.style.display =
     visibleMovies === 0 ? "block" : "none";
-
 }
-  function searchMovies() {
-  applyMovieFilters();
-}
-
-function filterMovies(category) {
-  ...
-}
-
-function applyMovieFilters() {
-  ...
-}
-
-</script>
 
 </script>
 </body>
