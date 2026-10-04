@@ -380,16 +380,31 @@ if (savedLanguage) {
 <script>
 
 function searchMovies() {
+  applyMovieFilters();
+}
+
+function filterMovies(category) {
+  window.selectedCategory = category;
+  applyMovieFilters();
+}
+
+function applyMovieFilters() {
 
   const input = document.getElementById("movieSearch").value.toLowerCase();
+  const category = window.selectedCategory || "all";
 
   const movies = document.querySelectorAll(".movie");
 
   movies.forEach(movie => {
 
     const title = movie.querySelector("h3").textContent.toLowerCase();
+    const genre = movie.querySelector("p").textContent;
 
-    if (title.includes(input)) {
+    const matchesSearch = title.includes(input);
+    const matchesCategory =
+      category === "all" || genre.includes(category);
+
+    if (matchesSearch && matchesCategory) {
       movie.style.display = "";
     } else {
       movie.style.display = "none";
@@ -397,7 +412,7 @@ function searchMovies() {
 
   });
 
-}
+  }
   function filterMovies(category) {
 
   const movies = document.querySelectorAll(".movie");
