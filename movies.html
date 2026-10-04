@@ -383,6 +383,14 @@ if (savedLanguage) {
 <script>
 
 }
+  function searchMovies() {
+  applyMovieFilters();
+}
+
+function filterMovies(category) {
+  window.selectedCategory = category;
+  applyMovieFilters();
+}
 
 function applyMovieFilters() {
 
