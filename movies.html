@@ -382,13 +382,6 @@ if (savedLanguage) {
 </script>
 <script>
 
-function searchMovies() {
-  applyMovieFilters();
-}
-
-function filterMovies(category) {
-  window.selectedCategory = category;
-  applyMovieFilters();
 }
 
 function applyMovieFilters() {
@@ -397,6 +390,9 @@ function applyMovieFilters() {
   const category = window.selectedCategory || "all";
 
   const movies = document.querySelectorAll(".movie");
+  const noMoviesMessage = document.getElementById("noMoviesMessage");
+
+  let visibleMovies = 0;
 
   movies.forEach(movie => {
 
@@ -409,30 +405,30 @@ function applyMovieFilters() {
 
     if (matchesSearch && matchesCategory) {
       movie.style.display = "";
+      visibleMovies++;
     } else {
       movie.style.display = "none";
     }
 
   });
 
-  }
-  function filterMovies(category) {
+  noMoviesMessage.style.display =
+    visibleMovies === 0 ? "block" : "none";
 
-  const movies = document.querySelectorAll(".movie");
+}
+  function searchMovies() {
+  applyMovieFilters();
+}
 
-  movies.forEach(movie => {
+function filterMovies(category) {
+  ...
+}
 
-    const genre = movie.querySelector("p").textContent;
+function applyMovieFilters() {
+  ...
+}
 
-    if (category === "all" || genre.includes(category)) {
-      movie.style.display = "";
-    } else {
-      movie.style.display = "none";
-    }
-
-  });
-
-  }
+</script>
 
 </script>
 </body>
