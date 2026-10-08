@@ -1,291 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hidden Truth | AfriFlix</title>
+  <title>Hidden Truth | AfriFlix</title>
+  <meta name="description" content="Discover Hidden Truth on AfriFlix, a thriller filled with secrets, mystery and unexpected twists.">
+  <meta name="theme-color" content="#080808">
+  <meta property="og:title" content="Hidden Truth | AfriFlix">
+  <meta property="og:description" content="A dangerous discovery reveals a truth that changes everything.">
+  <meta property="og:type" content="video.movie">
+  <meta property="og:url" content="https://afriflix.github.io/afriflix/hidden-truth.html">
+  <meta property="og:image" content="https://picsum.photos/900/500?random=104">
+  <meta property="og:site_name" content="AfriFlix">
 
-<style>
-* {
-    box-sizing: border-box;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0b0b0b;
-    color: white;
-}
+    body {
+      margin: 0;
+      background: #080808;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
 
-header {
-    background: #111;
-    padding: 18px 20px;
-    text-align: center;
-    border-bottom: 1px solid #222;
-}
+    header {
+      padding: 18px 20px;
+      background: #111;
+      font-size: 25px;
+      font-weight: bold;
+      border-bottom: 1px solid #222;
+    }
 
-.logo {
-    font-size: 28px;
-    font-weight: bold;
-    color: #e50914;
-}
+    .logo {
+      color: #e50914;
+    }
 
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 25px 18px 50px;
-}
+    .container {
+      max-width: 950px;
+      margin: auto;
+      padding: 20px;
+    }
 
-.back {
-    display: inline-block;
-    color: white;
-    text-decoration: none;
-    background: #222;
-    padding: 10px 16px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
+    .back {
+      display: inline-block;
+      margin: 0 0 22px;
+      padding: 10px 16px;
+      background: #e50914;
+      color: white;
+      text-decoration: none;
+      border-radius: 7px;
+      font-size: 14px;
+      font-weight: bold;
+    }
 
-.back:hover {
-    background: #333;
-}
+    .back:hover,
+    .view-movie:hover {
+      background: #b20710;
+    }
 
-h1 {
-    font-size: 34px;
-    margin-bottom: 8px;
-}
+    h1 {
+      margin: 5px 0 10px;
+      font-size: clamp(27px, 5vw, 38px);
+    }
 
-.genre {
-    color: #aaa;
-    margin-bottom: 20px;
-}
+    .genre {
+      color: #aaa;
+      margin-bottom: 22px;
+      font-size: 14px;
+    }
 
-video {
-    width: 100%;
-    max-height: 500px;
-    background: black;
-    border-radius: 12px;
-}
+    .now-playing {
+      color: #e50914;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-.rating {
-    margin-top: 18px;
-    font-size: 18px;
-}
+    video {
+      display: block;
+      width: 100%;
+      max-height: 520px;
+      background: #000;
+      border-radius: 12px;
+      object-fit: contain;
+    }
 
-.description {
-    color: #ccc;
-    line-height: 1.7;
-    font-size: 16px;
-    margin-top: 15px;
-}
+    .rating {
+      margin-top: 18px;
+      font-size: 17px;
+    }
 
-.watch-btn {
-    display: inline-block;
-    margin-top: 20px;
-    background: #e50914;
-    color: white;
-    text-decoration: none;
-    padding: 13px 22px;
-    border-radius: 8px;
-    font-weight: bold;
-}
+    .rating span {
+      color: #888;
+      font-size: 13px;
+    }
 
-footer {
-    text-align: center;
-    color: #777;
-    padding: 25px;
-    border-top: 1px solid #222;
-}
-</style>
+    .info {
+      color: #bbb;
+      line-height: 1.8;
+      margin-top: 18px;
+      font-size: 15px;
+    }
+
+    .section-title {
+      margin: 38px 0 8px;
+      font-size: 22px;
+    }
+
+    .section-subtitle {
+      color: #888;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .recommendations {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+    }
+
+    .movie-card {
+      flex: 0 0 165px;
+      padding: 12px;
+      background: #151515;
+      border: 1px solid #282828;
+      border-radius: 12px;
+    }
+
+    .movie-card img {
+      display: block;
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .movie-card h3 {
+      font-size: 15px;
+      margin: 12px 0 7px;
+    }
+
+    .movie-card p {
+      color: #aaa;
+      font-size: 12px;
+      line-height: 1.5;
+      min-height: 32px;
+      margin-bottom: 12px;
+    }
+
+    .view-movie {
+      display: block;
+      padding: 10px 6px;
+      background: #e50914;
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .home-link {
+      margin-top: 30px;
+    }
+
+    footer {
+      text-align: center;
+      color: #777;
+      padding: 25px 15px;
+      border-top: 1px solid #222;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 16px;
+      }
+
+      video {
+        max-height: 300px;
+      }
+
+      .movie-card {
+        flex-basis: 155px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo">AFRIFLIX</div>
+  <span class="logo">AFRI</span>FLIX
 </header>
 
-<div class="container">
+<main class="container">
 
-    <a href="movies.html" class="back">← Back to Movies</a>
+  <a class="back" href="movies.html">← Back to Movies</a>
 
-    <h1>Hidden Truth</h1>
+  <h1>Hidden Truth</h1>
 
-    <div class="genre">Thriller • 2026 • 4.5/5 ⭐</div>
+  <p class="genre">Thriller • 2026 • 4.5/5 ⭐</p>
 
-    <p style="
-    color:#e50914;
-    font-weight:bold;
-    font-size:14px;
-    margin-bottom:10px;
-">
-    ▶ NOW PLAYING
-</p>
+  <p class="now-playing">▶ NOW PLAYING</p>
 
-<video controls playsinline>
+  <video controls playsinline preload="metadata"
+         poster="https://picsum.photos/900/500?random=104">
     <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-    Your browser does not support the video player.
-</video>
+    Your browser does not support video playback.
+  </video>
 
-<div class="rating">
+  <p class="rating">
     ⭐ <strong>4.5/5</strong>
-    <span style="color:#888; font-size:14px;"> — AfriFlix Rating</span>
-</div>
+    <span>— AfriFlix Rating</span>
+  </p>
 
-<p class="description">
+  <p class="info">
     A mysterious secret begins to unravel when a young protagonist
     discovers a hidden truth that changes everything. What starts as
     a simple discovery soon becomes a dangerous journey filled with
     fear, mystery and unexpected twists.
-</p>
+  </p>
 
-<h2 style="
-    margin-top:35px;
-    margin-bottom:8px;
-    font-size:24px;
-">
-    🎬 More Like This
-</h2>
+  <h2 class="section-title">🎬 More Like This</h2>
 
-<p style="
-    color:#888;
-    font-size:13px;
-    margin-bottom:20px;
-">
+  <p class="section-subtitle">
     More stories you may enjoy.
-</p>
+  </p>
 
-<div style="
-    display:flex;
-    gap:18px;
-    overflow-x:auto;
-    padding-bottom:10px;
-">
+  <div class="recommendations">
 
-    <!-- Village Secrets -->
-    <div style="
-        min-width:160px;
-        background:#151515;
-        border-radius:12px;
-        padding:12px;
-        border:1px solid #222;
-    ">
+    <article class="movie-card">
+      <img
+        src="https://picsum.photos/seed/villagesecrets/300/420"
+        alt="Village Secrets poster">
 
-        <img
-            src="https://picsum.photos/seed/villagesecrets/300/420"
-            alt="Village Secrets"
-            style="
-                width:140px;
-                height:190px;
-                object-fit:cover;
-                border-radius:8px;
-                display:block;
-                margin:auto;
-            "
-        >
+      <h3>Village Secrets</h3>
 
-        <h3 style="
-            font-size:15px;
-            margin:12px 0 6px;
-        ">
-            Village Secrets
-        </h3>
+      <p>Mystery • 2026 ⭐ 4.2/5</p>
 
-        <p style="
-            color:#aaa;
-            font-size:12px;
-            margin:0 0 12px;
-        ">
-            Horror • 2026 ⭐ 4.2/5
-        </p>
+      <a class="view-movie" href="village-secrets.html">View Movie</a>
+    </article>
 
-        <a
-            href="village-secrets.html"
-            style="
-                display:block;
-                text-align:center;
-                background:#e50914;
-                color:white;
-                text-decoration:none;
-                padding:9px;
-                border-radius:7px;
-                font-size:13px;
-                font-weight:bold;
-            "
-        >
-            View Movie
-        </a>
+    <article class="movie-card">
+      <img
+        src="https://picsum.photos/seed/finalmission/300/420"
+        alt="Final Mission poster">
 
-    </div>
+      <h3>Final Mission</h3>
 
+      <p>Action • 2026 ⭐ 4.5/5</p>
 
-    <!-- Final Mission -->
-    <div style="
-        min-width:160px;
-        background:#151515;
-        border-radius:12px;
-        padding:12px;
-        border:1px solid #222;
-    ">
+      <a class="view-movie" href="final-mission.html">View Movie</a>
+    </article>
 
-        <img
-            src="https://picsum.photos/seed/finalmission/300/420"
-            alt="Final Mission"
-            style="
-                width:140px;
-                height:190px;
-                object-fit:cover;
-                border-radius:8px;
-                display:block;
-                margin:auto;
-            "
-        >
+  </div>
 
-        <h3 style="
-            font-size:15px;
-            margin:12px 0 6px;
-        ">
-            Final Mission
-        </h3>
+  <a class="back home-link" href="index.html">🏠 Back to Home</a>
 
-        <p style="
-            color:#aaa;
-            font-size:12px;
-            margin:0 0 12px;
-        ">
-            Action • 2026 ⭐ 4.5/5
-        </p>
-
-        <a
-            href="final-mission.html"
-            style="
-                display:block;
-                text-align:center;
-                background:#e50914;
-                color:white;
-                text-decoration:none;
-                padding:9px;
-                border-radius:7px;
-                font-size:13px;
-                font-weight:bold;
-            "
-        >
-            View Movie
-        </a>
-
-    </div>
-
-</div>
-
-<a href="index.html" class="watch-btn">
-    🏠 Back to Home
-</a>
-</div>
+</main>
 
 <footer>
-    © 2026 AfriFlix — African Stories, Global Entertainment
+  © 2026 AfriFlix — African Stories, Global Entertainment
 </footer>
 
 </body>
-      </html>
+</html>
