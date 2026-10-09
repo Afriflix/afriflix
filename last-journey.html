@@ -279,5 +279,67 @@
 
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
+const supabaseClient = supabase.createClient(
+  "https://caufbkwgwbudwpqhdgqa.supabase.co",
+  "sb_publishable_dmWG86ick8T5Z3lUV9Fiwg_tM4mpffo"
+);
+
+const watchlistButton = document.getElementById("watchlistButton");
+const watchlistMessage = document.getElementById("watchlistMessage");
+
+watchlistButton.addEventListener("click", async function () {
+  watchlistButton.disabled = true;
+  watchlistMessage.textContent = "Saving to your watchlist...";
+
+  try {
+    const { data: { session }, error: sessionError } =
+      await supabaseClient.auth.getSession();
+
+    if (sessionError) throw sessionError;
+
+    if (!session) {
+      watchlistMessage.textContent =
+        "Please sign in on AfriFlix first, then try again.";
+      return;
+    }
+
+    const { data: existingMovie, error: checkError } =
+      await supabaseClient
+        .from("watchlist")
+        .select("id")
+        .eq("user_id", session.user.id)
+        .eq("movie_name", "The Last Journey")
+        .maybeSingle();
+
+    if (checkError) throw checkError;
+
+    if (existingMovie) {
+      watchlistMessage.textContent =
+        "The Last Journey is already in your watchlist ❤️";
+      return;
+    }
+
+    const { error: insertError } = await supabaseClient
+      .from("watchlist")
+      .insert({
+        user_id: session.user.id,
+        movie_name: "The Last Journey"
+      });
+
+    if (insertError) throw insertError;
+
+    watchlistMessage.textContent =
+      "The Last Journey saved to your cloud watchlist! ❤️";
+
+  } catch (error) {
+    console.error(error);
+    watchlistMessage.textContent =
+      "Could not save the movie. Please try again.";
+  } finally {
+    watchlistButton.disabled = false;
+  }
+});
+</script>
 </body>
 </html>
