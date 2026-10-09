@@ -5,14 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Kingdom Rising | AfriFlix</title>
-  <meta name="description" content="Discover Kingdom Rising on AfriFlix, a platform celebrating African cinema and entertainment.">
-  <meta name="theme-color" content="#080808">
-  <meta property="og:title" content="Kingdom Rising | AfriFlix">
-  <meta property="og:description" content="Discover Kingdom Rising on AfriFlix.">
-  <meta property="og:type" content="video.movie">
-  <meta property="og:url" content="https://afriflix.github.io/afriflix/movie.html">
-  <meta property="og:image" content="https://picsum.photos/900/500?random=20">
-  <meta property="og:site_name" content="AfriFlix">
+  <meta name="description" content="Watch Kingdom Rising on AfriFlix, celebrating African cinema.">
+
+  <!-- Supabase: load only once -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     * {
@@ -22,397 +18,381 @@
     body {
       margin: 0;
       background: #080808;
-      color: white;
-      font-family: Arial, sans-serif;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
     }
 
     header {
-      padding: 18px 20px;
       background: #111;
-      font-size: 25px;
-      font-weight: bold;
-      border-bottom: 1px solid #222;
+      padding: 16px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #292929;
     }
 
     .logo {
       color: #e50914;
-    }
-
-    .container {
-      max-width: 950px;
-      margin: auto;
-      padding: 20px;
-    }
-
-    .back {
-      display: inline-block;
-      margin: 0 0 22px;
-      padding: 10px 16px;
-      background: #e50914;
-      color: white;
+      font-size: 27px;
+      font-weight: 900;
       text-decoration: none;
-      border-radius: 7px;
-      font-size: 14px;
-      font-weight: bold;
     }
 
-    .back:hover,
-    .view-movie:hover {
-      background: #b20710;
+    nav {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #e50914;
+    }
+
+    main {
+      width: 90%;
+      max-width: 1050px;
+      margin: 30px auto;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #ddd;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      color: #e50914;
+    }
+
+    .movie-heading {
+      margin-bottom: 22px;
     }
 
     h1 {
-      margin: 5px 0 10px;
-      font-size: clamp(27px, 5vw, 38px);
+      font-size: clamp(30px, 6vw, 46px);
+      margin: 0 0 8px;
+      line-height: 1.2;
     }
 
-    .genre {
-      color: #aaa;
-      margin-bottom: 22px;
+    .movie-info {
+      color: #bbb;
       font-size: 14px;
     }
 
-    .now-playing {
+    .player-label {
+      display: inline-block;
       color: #e50914;
-      font-size: 13px;
       font-weight: bold;
-      margin-bottom: 10px;
+      margin: 0 0 10px;
+    }
+
+    .video-container {
+      width: 100%;
+      background: #000;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #292929;
     }
 
     video {
       display: block;
       width: 100%;
-      max-height: 520px;
+      max-height: 560px;
       background: #000;
-      border-radius: 12px;
-      object-fit: contain;
     }
 
-    .rating {
-      margin-top: 18px;
-      font-size: 17px;
-    }
-
-    .rating span {
-      color: #888;
+    .notice {
+      color: #aaa;
       font-size: 13px;
-    }
-
-    .info {
-      color: #bbb;
-      line-height: 1.8;
-      margin-top: 18px;
-      font-size: 15px;
-    }
-
-    .watchlist-page-btn {
       margin-top: 10px;
-      padding: 12px 18px;
-      background: #1b1b1b;
-      color: white;
-      border: 1px solid #444;
-      border-radius: 7px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 14px;
     }
 
-    .watchlist-page-btn:hover {
-      background: #292929;
+    .description {
+      margin-top: 28px;
+      color: #ddd;
     }
 
-    .section-title {
-      margin: 38px 0 8px;
+    .description h2,
+    .more-section h2 {
+      color: #fff;
       font-size: 22px;
     }
 
-    .section-subtitle {
-      color: #888;
-      font-size: 13px;
-      margin-bottom: 18px;
+    #watchlistButton {
+      background: #292929;
+      color: #fff;
+      border: 1px solid #444;
+      padding: 13px 18px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 18px;
     }
 
-    .recommendations {
-      display: flex;
-      gap: 16px;
-      overflow-x: auto;
-      padding-bottom: 12px;
+    #watchlistButton:hover {
+      background: #e50914;
+    }
+
+    #watchlistButton:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    #watchlistMessage {
+      color: #ccc;
+      min-height: 24px;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .more-section {
+      margin-top: 38px;
+    }
+
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
     }
 
     .movie-card {
-      flex: 0 0 165px;
-      padding: 12px;
-      background: #151515;
-      border: 1px solid #282828;
-      border-radius: 12px;
+      background: #171717;
+      padding: 18px;
+      border-radius: 9px;
+      border: 1px solid #292929;
+      text-decoration: none;
+      color: #fff;
+      transition: border-color 0.2s;
     }
 
-    .movie-card img {
-      display: block;
-      width: 100%;
-      height: 190px;
-      object-fit: cover;
-      border-radius: 8px;
+    .movie-card:hover {
+      border-color: #e50914;
     }
 
     .movie-card h3 {
-      font-size: 15px;
-      margin: 12px 0 7px;
+      margin: 0 0 5px;
+      font-size: 17px;
     }
 
     .movie-card p {
+      margin: 0;
       color: #aaa;
-      font-size: 12px;
-      line-height: 1.5;
-      min-height: 32px;
-      margin-bottom: 12px;
-    }
-
-    .view-movie {
-      display: block;
-      padding: 10px 6px;
-      background: #e50914;
-      color: white;
-      text-decoration: none;
-      text-align: center;
-      border-radius: 7px;
       font-size: 13px;
-      font-weight: bold;
     }
 
-    .home-link {
-      margin-top: 30px;
+    footer {
+      margin-top: 50px;
+      padding: 24px 5%;
+      background: #111;
+      border-top: 1px solid #292929;
+      text-align: center;
+      color: #999;
+      font-size: 13px;
     }
 
-    @media (max-width: 600px) {
-      .container {
-        padding: 16px;
+    @media (max-width: 500px) {
+      header {
+        padding: 14px 5%;
       }
 
-      video {
-        max-height: 300px;
+      nav {
+        gap: 12px;
       }
 
-      .movie-card {
-        flex-basis: 155px;
+      .movie-grid {
+        grid-template-columns: 1fr;
+      }
+
+      main {
+        margin-top: 22px;
       }
     }
   </style>
 </head>
 
 <body>
+  <header>
+    <a class="logo" href="index.html">AfriFlix</a>
 
-<header>
-  <span class="logo">AFRI</span>FLIX
-</header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="movies.html">Movies</a>
+    </nav>
+  </header>
 
-<main class="container">
+  <main>
+    <a class="back-link" href="movies.html">← Back to Movies</a>
 
-  <a class="back" href="movies.html">← Back to Movies</a>
+    <section class="movie-heading">
+      <h1>Kingdom Rising</h1>
+      <div class="movie-info">
+        Drama • 2026 • African Cinema
+      </div>
+    </section>
 
-  <h1>Kingdom Rising</h1>
+    <section>
+      <p class="player-label">▶ NOW PLAYING</p>
 
-  <p class="genre">Drama • 2026 • 4.8/5 ⭐</p>
+      <div class="video-container">
+        <video controls playsinline preload="metadata">
+          <source
+            src="https://www.w3schools.com/html/mov_bbb.mp4"
+            type="video/mp4">
+          Your browser does not support video playback.
+        </video>
+      </div>
 
-  <p class="now-playing">▶ NOW PLAYING</p>
+      <p class="notice">
+        Demo video for testing only. This is not the full Kingdom Rising film.
+      </p>
+    </section>
 
-  <video controls playsinline preload="metadata"
-         poster="https://picsum.photos/900/500?random=20">
-    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-    Your browser does not support video playback.
-  </video>
+    <section class="description">
+      <h2>About This Movie</h2>
 
-  <p class="rating">
-    ⭐ <strong>4.8/5</strong>
-    <span>— AfriFlix Rating</span>
-  </p>
+      <p>
+        A kingdom faces a difficult future as courage, loyalty and the desire
+        for a better tomorrow put its people to the test. Kingdom Rising is
+        presented here as an African cinema movie-page demonstration.
+      </p>
 
-  <p class="info">
-    Kingdom Rising is an AfriFlix demonstration title created to test
-    the platform's movie-watching experience. Explore the story,
-    enjoy the viewing experience, and discover more African cinema
-    coming to AfriFlix.
-  </p>
+      <button id="watchlistButton" type="button">
+        ❤️ Add to Watchlist
+      </button>
 
-  <button id="watchlistButton" type="button">
-  ❤️ Add to Watchlist
-</button><p id="watchlistMessage" role="status"></p><style>
-  #watchlistButton {
-    background: #292929;
-    color: white;
-    border: 1px solid #444;
-    padding: 13px 18px;
-    border-radius: 9px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-  }
+      <p id="watchlistMessage" role="status" aria-live="polite"></p>
+    </section>
 
-  #watchlistButton:hover {
-    background: #e50914;
-  }
+    <section class="more-section">
+      <h2>More Like This</h2>
 
-  #watchlistMessage {
-    color: #aaa;
-    margin-top: 10px;
-    font-size: 14px;
-  }
-</style>
+      <div class="movie-grid">
+        <a class="movie-card" href="last-journey.html">
+          <h3>The Last Journey</h3>
+          <p>Adventure • 2026</p>
+        </a>
 
-  <h2 class="section-title">🎬 More Like This</h2>
+        <a class="movie-card" href="city-of-dreams.html">
+          <h3>City of Dreams</h3>
+          <p>Drama • 2026</p>
+        </a>
 
-  <p class="section-subtitle">
-    More stories you may enjoy.
-  </p>
+        <a class="movie-card" href="hidden-truth.html">
+          <h3>Hidden Truth</h3>
+          <p>Thriller • 2026</p>
+        </a>
 
-  <div class="recommendations">
+        <a class="movie-card" href="beyond-the-storm.html">
+          <h3>Beyond the Storm</h3>
+          <p>Drama • 2026</p>
+        </a>
+      </div>
+    </section>
 
-    <article class="movie-card">
-      <img
-        src="https://picsum.photos/seed/cityofdreams/300/420"
-        alt="City of Dreams poster">
+    <p style="text-align:center; margin-top:35px;">
+      <a class="back-link" href="index.html">← Back to AfriFlix Home</a>
+    </p>
+  </main>
 
-      <h3>City of Dreams</h3>
+  <footer>
+    © 2026 AfriFlix • Celebrating African Cinema 🌍
+  </footer>
 
-      <p>Drama • 2026 ⭐ 4.4/5</p>
+  <script>
+    // One Supabase client for this page only.
+    const supabaseClient = window.supabase.createClient(
+      "https://caufbkwgwbudwpqhdgqa.supabase.co",
+      "sb_publishable_dmWG86ick8T5Z3lUV9Fiwg_tM4mpffo"
+    );
 
-      <a class="view-movie" href="city-of-dreams.html">
-        View Movie
-      </a>
-    </article>
+    const watchlistButton = document.getElementById("watchlistButton");
+    const watchlistMessage = document.getElementById("watchlistMessage");
 
-    <article class="movie-card">
-      <img
-        src="https://picsum.photos/seed/lastjourney/300/420"
-        alt="The Last Journey poster">
+    watchlistButton.addEventListener("click", async function () {
+      watchlistButton.disabled = true;
+      watchlistMessage.textContent = "Checking your account...";
 
-      <h3>The Last Journey</h3>
+      try {
+        const { data: sessionData, error: sessionError } =
+          await supabaseClient.auth.getSession();
 
-      <p>Adventure • 2026 ⭐ 4.3/5</p>
+        if (sessionError) {
+          throw sessionError;
+        }
 
-      <a class="view-movie" href="last-journey.html">
-        View Movie
-      </a>
-    </article>
+        const session = sessionData.session;
 
-  </div>
+        if (!session) {
+          watchlistMessage.textContent =
+            "Please sign in on the AfriFlix home page first, then return here.";
 
-  <a class="back home-link" href="index.html">🏠 Back to Home</a>
+          watchlistButton.disabled = false;
+          return;
+        }
 
-</main>
+        watchlistMessage.textContent = "Checking your watchlist...";
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        const { data: existingMovie, error: checkError } =
+          await supabaseClient
+            .from("watchlist")
+            .select("id")
+            .eq("user_id", session.user.id)
+            .eq("movie_name", "Kingdom Rising")
+            .maybeSingle();
 
-<script>
-  const SUPABASE_URL = "https://caufbkwgwbudwpqhdgqa.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_dmWG86ick8T5Z3lUV9Fiwg_tM4mpffo";
+        if (checkError) {
+          throw checkError;
+        }
 
-  const supabaseClient = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+        if (existingMovie) {
+          watchlistMessage.textContent =
+            "Kingdom Rising is already in your watchlist ❤️";
 
-  async function addToWatchlist(movieName) {
-    try {
-      const { data: { session }, error: sessionError } =
-        await supabaseClient.auth.getSession();
+          watchlistButton.textContent = "✓ Already in Watchlist";
+          watchlistButton.disabled = false;
+          return;
+        }
 
-      if (sessionError) {
-        alert(sessionError.message);
-        return;
-      }
+        watchlistMessage.textContent = "Saving Kingdom Rising...";
 
-      if (!session) {
-        alert("Please sign in to save movies to your account.");
-        return;
-      }
-
-      const { data: existingMovie, error: checkError } =
-        await supabaseClient
+        const { error: insertError } = await supabaseClient
           .from("watchlist")
-          .select("id")
-          .eq("user_id", session.user.id)
-          .eq("movie_name", movieName)
-          .maybeSingle();
+          .insert([
+            {
+              user_id: session.user.id,
+              movie_name: "Kingdom Rising"
+            }
+          ]);
 
-      if (checkError) {
-        alert(checkError.message);
-        return;
+        if (insertError) {
+          throw insertError;
+        }
+
+        watchlistButton.textContent = "✓ Added to Watchlist";
+        watchlistMessage.textContent =
+          "Kingdom Rising was added to your watchlist successfully! ❤️";
+
+      } catch (error) {
+        console.error("AfriFlix watchlist error:", error);
+
+        watchlistMessage.textContent =
+          "Could not save the movie. Please check your internet connection and try again.";
+
+      } finally {
+        watchlistButton.disabled = false;
       }
-
-      if (existingMovie) {
-        alert(movieName + " is already in your watchlist.");
-        return;
-      }
-
-      const { error: insertError } = await supabaseClient
-        .from("watchlist")
-        .insert({
-          user_id: session.user.id,
-          movie_name: movieName
-        });
-
-      if (insertError) {
-        alert(insertError.message);
-        return;
-      }
-
-      alert(movieName + " added to your cloud watchlist ❤️");
-
-    } catch (error) {
-      alert("Something went wrong. Please try again.");
-      console.error(error);
-    }
-  }
-</script>
-}
-const supabaseClient = supabase.createClient(
-  "https://caufbkwgwbudwpqhdgqa.supabase.co",
-  "sb_publishable_dmWG86ick8T5Z3lUV9Fiwg_tM4mpffo"
-);
-
-const watchlistButton = document.getElementById("watchlistButton");
-const watchlistMessage = document.getElementById("watchlistMessage");
-
-watchlistButton.addEventListener("click", async function () {
-  watchlistButton.disabled = true;
-  watchlistMessage.textContent = "Saving to your watchlist...";
-
-  try {
-    const { data: { session }, error: sessionError } =
-      await supabaseClient.auth.getSession();
-    if (sessionError) throw sessionError;
-
-    if (!session) {
-      watchlistMessage.textContent = "Please sign in on AfriFlix first, then try again.";
-      return;
-    }
-
-    const { data: existingMovie, error: checkError } = await supabaseClient
-      .from("watchlist").select("id")
-      .eq("user_id", session.user.id)
-      .eq("movie_name", "Kingdom Rising").maybeSingle();
-    if (checkError) throw checkError;
-
-    if (existingMovie) {
-      watchlistMessage.textContent = "Kingdom Rising is already in your watchlist ❤️";
-      return;
-    }
-
-    const { error } = await supabaseClient.from("watchlist").insert({
-      user_id: session.user.id,
-      movie_name: "Kingdom Rising"
     });
-    if (error) throw error;
-
-    watchlistMessage.textContent = "Kingdom Rising saved to your cloud watchlist! ❤️";
-  } catch (error) {
-    console.error(error);
-    watchlistMessage.textContent = "Could not save the movie. Please try again.";
-  } finally {
-    watchlistButton.disabled = false;
-  }
-});
-</script>
+  </script>
 </body>
-</html>
+    </html>
