@@ -3,302 +3,329 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Beyond The Storm | AfriFlix</title>
+<meta name="theme-color" content="#080808">
+<title>Beyond the Storm | AfriFlix</title>
+<meta name="description" content="Discover Beyond the Storm on AfriFlix, celebrating African cinema.">
 
 <style>
-* {
-    box-sizing: border-box;
+:root {
+  --bg: #080808;
+  --panel: #171717;
+  --red: #e50914;
+  --white: #fff;
+  --muted: #b3b3b3;
 }
-
+* { box-sizing: border-box; }
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0b0b0b;
-    color: white;
+  margin: 0;
+  background: var(--bg);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
 }
-
+a { color: inherit; text-decoration: none; }
 header {
-    background: #111;
-    padding: 18px 20px;
-    text-align: center;
-    border-bottom: 1px solid #222;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(8,8,8,.97);
+  border-bottom: 1px solid #292929;
+  padding: 15px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
 }
-
 .logo {
-    font-size: 28px;
-    font-weight: bold;
-    color: #e50914;
+  font-size: 27px;
+  font-weight: 900;
+  color: var(--red);
+  letter-spacing: -1px;
 }
-
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 25px 18px 50px;
+.logo span { color: white; }
+nav { display: flex; gap: 18px; font-size: 14px; }
+nav a:hover { color: var(--red); }
+main { max-width: 1200px; margin: auto; padding: 25px 5%; }
+.hero {
+  min-height: 330px;
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  align-items: end;
+  padding: 28px;
+  background:
+    linear-gradient(0deg, rgba(0,0,0,.95), rgba(0,0,0,.12)),
+    url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1400&q=85")
+    center/cover;
 }
-
-.back {
-    display: inline-block;
-    color: white;
-    text-decoration: none;
-    background: #222;
-    padding: 10px 16px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+.hero h1 { font-size: clamp(32px, 6vw, 54px); margin: 0 0 12px; }
+.tag { color: #ff4b55; font-weight: bold; letter-spacing: 2px; font-size: 12px; }
+.meta { color: #ddd; font-size: 14px; line-height: 1.8; }
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(230px, .8fr);
+  gap: 25px;
+  margin-top: 28px;
 }
-
-.back:hover {
-    background: #333;
+.panel {
+  background: var(--panel);
+  border: 1px solid #282828;
+  border-radius: 13px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
-
-h1 {
-    font-size: 34px;
-    margin-bottom: 8px;
-}
-
-.genre {
-    color: #aaa;
-    margin-bottom: 20px;
-}
-
+h2 { font-size: 21px; margin: 0 0 16px; }
 video {
-    width: 100%;
-    max-height: 500px;
-    background: black;
-    border-radius: 12px;
+  display: block;
+  width: 100%;
+  background: #000;
+  border-radius: 9px;
+  aspect-ratio: 16 / 9;
 }
-
-.rating {
-    margin-top: 18px;
-    font-size: 18px;
+p { color: #d0d0d0; line-height: 1.7; }
+.button {
+  display: inline-block;
+  border: 0;
+  border-radius: 7px;
+  padding: 13px 17px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
 }
-
-.description {
-    color: #ccc;
-    line-height: 1.7;
-    font-size: 16px;
-    margin-top: 15px;
+.primary { background: var(--red); color: white; }
+.primary:hover { background: #b80710; }
+button:disabled { opacity: .65; cursor: wait; }
+#watchlistMessage { font-size: 13px; overflow-wrap: anywhere; }
+.poster {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 9px;
+  background: #222;
 }
-
-.watch-btn {
-    display: inline-block;
-    margin-top: 20px;
-    background: #e50914;
-    color: white;
-    text-decoration: none;
-    padding: 13px 22px;
-    border-radius: 8px;
-    font-weight: bold;
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
 }
-
+.movie-card { min-width: 0; }
+.movie-card img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform .2s;
+}
+.movie-card a:hover img { transform: scale(1.03); }
+.movie-card h3 { font-size: 14px; margin: 9px 0 5px; }
+.movie-card small { color: var(--muted); }
 footer {
-    text-align: center;
-    color: #777;
-    padding: 25px;
-    border-top: 1px solid #222;
+  text-align: center;
+  padding: 28px 15px;
+  color: #999;
+  border-top: 1px solid #292929;
+  font-size: 13px;
+}
+@media (max-width: 700px) {
+  header { padding: 13px 4%; }
+  .logo { font-size: 23px; }
+  nav { gap: 12px; font-size: 12px; }
+  main { padding: 18px 4%; }
+  .hero { min-height: 260px; padding: 20px; }
+  .content { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 
 <body>
-
 <header>
-    <div class="logo">AFRIFLIX</div>
+  <a class="logo" href="index.html">Afri<span>Flix</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="movies.html">Movies</a>
+    <a href="index.html">My Account</a>
+  </nav>
 </header>
 
-<div class="container">
+<main>
+  <section class="hero">
+    <div>
+      <div class="tag">AFRIFLIX ORIGINALS • AFRICAN CINEMA</div>
+      <h1>Beyond the Storm</h1>
+      <div class="meta">Drama • 2026 • ⭐ 4.2/5</div>
+    </div>
+  </section>
 
-    <a href="movies.html" class="back">← Back to Movies</a>
+  <div class="content">
+    <div>
+      <section class="panel">
+        <h2>▶ Now Playing</h2>
+        <video controls playsinline preload="metadata"
+          poster="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80">
+          <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+          Your browser does not support video playback.
+        </video>
+        <p style="font-size:12px">Demo video only — this is not the full movie.</p>
+      </section>
 
-    <h1>Beyond The Storm</h1>
+      <section class="panel">
+        <h2>About This Movie</h2>
+        <p>
+          After a season of loss and uncertainty, a family searches for hope
+          beyond the troubles surrounding them. Their strength is tested by
+          unexpected challenges, old wounds and difficult decisions. Through
+          courage and the support of those around them, they discover that
+          even the darkest storm can give way to a new beginning.
+        </p>
+        <p><strong>Genre:</strong> Drama</p>
+        <p><strong>Release year:</strong> 2026</p>
+        <p><strong>Rating:</strong> ⭐ 4.2/5 (sample rating)</p>
+      </section>
 
-    <div class="genre">Action • 2026 • 4.4/5 ⭐</div>
-<p style="
-    color:#e50914;
-    font-weight:bold;
-    font-size:14px;
-    margin-bottom:10px;
-">
-    ▶ NOW PLAYING
-</p>
-    <video controls playsinline>
-        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
-        Your browser does not support the video player.
-    </video>
-
-    <div class="rating">
-    ⭐ <strong>4.4/5</strong>
-    <span style="color:#888; font-size:14px;"> — AfriFlix Rating</span>
+      <section class="panel">
+        <h2>❤️ Add to Your Watchlist</h2>
+        <p>Save this movie to your personal AfriFlix watchlist.</p>
+        <button id="watchlistButton" class="button primary">
+          ♡ Add to Watchlist
+        </button>
+        <p id="watchlistMessage" role="status" aria-live="polite"></p>
+      </section>
     </div>
 
-    <p class="description">
-        After a powerful storm changes everything, a determined hero
-        must fight through danger and uncertainty to protect the people
-        he loves. A journey of courage, survival and hope begins beyond
-        the storm.
-    </p>
-    <button id="watchlistButton" type="button">
-  ❤️ Add to Watchlist
-</button><p id="watchlistMessage" role="status"></p><style>
-  #watchlistButton {
-    background: #292929;
-    color: white;
-    border: 1px solid #444;
-    padding: 13px 18px;
-    border-radius: 9px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-  }
+    <aside>
+      <section class="panel">
+        <h2>Movie Poster</h2>
+        <img class="poster"
+          src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=85"
+          alt="Beyond the Storm poster artwork">
+      </section>
 
-  #watchlistButton:hover {
-    background: #e50914;
-  }
+      <section class="panel">
+        <h2>More Like This</h2>
+        <div class="movie-grid">
+          <article class="movie-card">
+            <a href="movie.html">
+              <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80" alt="Kingdom Rising">
+              <h3>Kingdom Rising</h3>
+            </a>
+            <small>Drama</small>
+          </article>
 
-  #watchlistMessage {
-    color: #aaa;
-    margin-top: 10px;
-    font-size: 14px;
-  }
-</style>
-<h2 style="margin-top:35px; margin-bottom:15px;">
-    🎬 More Like This
-</h2>
+          <article class="movie-card">
+            <a href="last-journey.html">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=400&q=80" alt="The Last Journey">
+              <h3>The Last Journey</h3>
+            </a>
+            <small>Adventure</small>
+          </article>
 
-<p style="color:#888; font-size:14px; margin-bottom:18px;">
-    You may also enjoy these movies on AfriFlix.
-</p>
-    <div style="
-    background:#151515;
-    padding:15px;
-    border-radius:12px;
-    margin-bottom:15px;
-">
-<img src="https://picsum.photos/seed/finalmission/300/420"
-     alt="Final Mission"
-     style="
-         width:140px;
-         max-height:220px;
-         object-fit:cover;
-         border-radius:10px;
-         margin-bottom:12px;
-     ">
-    <h3 style="margin:0 0 8px;">
-        Final Mission
-    </h3>
+          <article class="movie-card">
+            <a href="city-of-dreams.html">
+              <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=400&q=80" alt="City of Dreams">
+              <h3>City of Dreams</h3>
+            </a>
+            <small>Drama</small>
+          </article>
 
-    <p style="color:#999; font-size:13px; margin:0 0 12px;">
-        Action • 2026 ⭐ 4.5/5
-    </p>
+          <article class="movie-card">
+            <a href="hidden-truth.html">
+              <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=400&q=80" alt="Hidden Truth">
+              <h3>Hidden Truth</h3>
+            </a>
+            <small>Thriller</small>
+          </article>
 
-    <a href="final-mission.html"
-       style="
-           display:inline-block;
-           background:#e50914;
-           color:white;
-           text-decoration:none;
-           padding:8px 14px;
-           border-radius:18px;
-           font-size:12px;
-           font-weight:bold;
-       ">
-        ▶ View Movie
-    </a>
+          <article class="movie-card">
+            <a href="broken-promise.html">
+              <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=400&q=80" alt="Broken Promise">
+              <h3>Broken Promise</h3>
+            </a>
+            <small>Drama</small>
+          </article>
 
-    </div>
-    <div style="
-    background:#151515;
-    padding:15px;
-    border-radius:12px;
-    margin-bottom:15px;
-">
-<img src="https://picsum.photos/seed/brokenpromise/300/420"
-     alt="Broken Promise"
-     style="
-         width:140px;
-         max-height:220px;
-         object-fit:cover;
-         border-radius:10px;
-         margin-bottom:12px;
-     ">
-    <h3 style="margin:0 0 8px;">
-        Broken Promise
-    </h3>
+          <article class="movie-card">
+            <a href="final-mission.html">
+              <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=400&q=80" alt="Final Mission">
+              <h3>Final Mission</h3>
+            </a>
+            <small>Action</small>
+          </article>
 
-    <p style="color:#999; font-size:13px; margin:0 0 12px;">
-        Romance • 2026 ⭐ 4.3/5
-    </p>
+          <article class="movie-card">
+            <a href="village-secrets.html">
+              <img src="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=400&q=80" alt="Village Secrets">
+              <h3>Village Secrets</h3>
+            </a>
+            <small>Mystery</small>
+          </article>
+        </div>
+      </section>
+    </aside>
+  </div>
+</main>
 
-    <a href="broken-promise.html"
-       style="
-           display:inline-block;
-           background:#e50914;
-           color:white;
-           text-decoration:none;
-           padding:8px 14px;
-           border-radius:18px;
-           font-size:12px;
-           font-weight:bold;
-       ">
-        ▶ View Movie
-    </a>
+<footer>© 2026 AfriFlix • Celebrating African Cinema 🌍</footer>
 
-    </div>
-    <a href="index.html" class="watch-btn">🏠 Back to Home</a>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(() => {
+  const supabaseClient = window.supabase.createClient(
+    "https://caufbkwgwbudwpqhdgqa.supabase.co",
+    "sb_publishable_dmWG86ick8T5Z3lUV9Fiwg_tM4mpffo"
+  );
 
-</div>
+  const button = document.getElementById("watchlistButton");
+  const message = document.getElementById("watchlistMessage");
+  const movieName = "Beyond the Storm";
 
-<footer>
-    © 2026 AfriFlix — African Stories, Global Entertainment
-</footer>
+  button.addEventListener("click", async () => {
+    button.disabled = true;
+    message.textContent = "Checking your account...";
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
-const supabaseClient = supabase.createClient(
-  "https://caufbkwgwbudwpqhdgqa.supabase.co",
-  "sb_publishable_dmWG86ick8T5Z3lUV9Fiwg_tM4mpffo"
-);
+    try {
+      const { data, error } = await supabaseClient.auth.getSession();
+      if (error) throw error;
 
-const watchlistButton = document.getElementById("watchlistButton");
-const watchlistMessage = document.getElementById("watchlistMessage");
+      if (!data.session) {
+        message.textContent =
+          "Please sign in on the AfriFlix home page first, then return here.";
+        return;
+      }
 
-watchlistButton.addEventListener("click", async function () {
-  watchlistButton.disabled = true;
-  watchlistMessage.textContent = "Saving to your watchlist...";
+      const user = data.session.user;
 
-  try {
-    const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
-    if (sessionError) throw sessionError;
+      const { data: existing, error: checkError } = await supabaseClient
+        .from("watchlist")
+        .select("id")
+        .eq("user_id", user.id)
+        .eq("movie_name", movieName)
+        .maybeSingle();
 
-    if (!session) {
-      watchlistMessage.textContent = "Please sign in on AfriFlix first, then try again.";
-      return;
+      if (checkError) throw checkError;
+
+      if (existing) {
+        button.textContent = "✓ Already in Watchlist";
+        message.textContent = movieName + " is already in your watchlist ❤️";
+        return;
+      }
+
+      const { error: saveError } = await supabaseClient
+        .from("watchlist")
+        .insert([{ user_id: user.id, movie_name: movieName }]);
+
+      if (saveError) throw saveError;
+
+      button.textContent = "✓ Added to Watchlist";
+      message.textContent =
+        movieName + " was added to your watchlist successfully! ❤️";
+    } catch (error) {
+      console.error("Watchlist error:", error);
+      message.textContent =
+        "Could not save the movie. Check your connection and try again.";
+    } finally {
+      button.disabled = false;
     }
-
-    const { data: existingMovie, error: checkError } = await supabaseClient
-      .from("watchlist").select("id")
-      .eq("user_id", session.user.id)
-      .eq("movie_name", "Beyond The Storm").maybeSingle();
-    if (checkError) throw checkError;
-
-    if (existingMovie) {
-      watchlistMessage.textContent = "Beyond The Storm is already in your watchlist ❤️";
-      return;
-    }
-
-    const { error } = await supabaseClient.from("watchlist").insert({
-      user_id: session.user.id,
-      movie_name: "Beyond The Storm"
-    });
-    if (error) throw error;
-
-    watchlistMessage.textContent = "Beyond The Storm saved to your cloud watchlist! ❤️";
-  } catch (error) {
-    console.error(error);
-    watchlistMessage.textContent = "Could not save the movie. Please try again.";
-  } finally {
-    watchlistButton.disabled = false;
-  }
-});
+  });
+})();
 </script>
 </body>
 </html>
