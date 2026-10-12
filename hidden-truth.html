@@ -1,344 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>Hidden Truth | AfriFlix</title>
+<meta name="description" content="Discover Hidden Truth on AfriFlix, celebrating African cinema.">
 
-  <title>Hidden Truth | AfriFlix</title>
-  <meta name="description" content="Discover Hidden Truth on AfriFlix, a thriller filled with secrets, mystery and unexpected twists.">
-  <meta name="theme-color" content="#080808">
-  <meta property="og:title" content="Hidden Truth | AfriFlix">
-  <meta property="og:description" content="A dangerous discovery reveals a truth that changes everything.">
-  <meta property="og:type" content="video.movie">
-  <meta property="og:url" content="https://afriflix.github.io/afriflix/hidden-truth.html">
-  <meta property="og:image" content="https://picsum.photos/900/500?random=104">
-  <meta property="og:site_name" content="AfriFlix">
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: #080808;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
-
-    header {
-      padding: 18px 20px;
-      background: #111;
-      font-size: 25px;
-      font-weight: bold;
-      border-bottom: 1px solid #222;
-    }
-
-    .logo {
-      color: #e50914;
-    }
-
-    .container {
-      max-width: 950px;
-      margin: auto;
-      padding: 20px;
-    }
-
-    .back {
-      display: inline-block;
-      margin: 0 0 22px;
-      padding: 10px 16px;
-      background: #e50914;
-      color: white;
-      text-decoration: none;
-      border-radius: 7px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .back:hover,
-    .view-movie:hover {
-      background: #b20710;
-    }
-
-    h1 {
-      margin: 5px 0 10px;
-      font-size: clamp(27px, 5vw, 38px);
-    }
-
-    .genre {
-      color: #aaa;
-      margin-bottom: 22px;
-      font-size: 14px;
-    }
-
-    .now-playing {
-      color: #e50914;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    video {
-      display: block;
-      width: 100%;
-      max-height: 520px;
-      background: #000;
-      border-radius: 12px;
-      object-fit: contain;
-    }
-
-    .rating {
-      margin-top: 18px;
-      font-size: 17px;
-    }
-
-    .rating span {
-      color: #888;
-      font-size: 13px;
-    }
-
-    .info {
-      color: #bbb;
-      line-height: 1.8;
-      margin-top: 18px;
-      font-size: 15px;
-    }
-
-    .section-title {
-      margin: 38px 0 8px;
-      font-size: 22px;
-    }
-
-    .section-subtitle {
-      color: #888;
-      font-size: 13px;
-      margin-bottom: 18px;
-    }
-
-    .recommendations {
-      display: flex;
-      gap: 16px;
-      overflow-x: auto;
-      padding-bottom: 12px;
-    }
-
-    .movie-card {
-      flex: 0 0 165px;
-      padding: 12px;
-      background: #151515;
-      border: 1px solid #282828;
-      border-radius: 12px;
-    }
-
-    .movie-card img {
-      display: block;
-      width: 100%;
-      height: 190px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-
-    .movie-card h3 {
-      font-size: 15px;
-      margin: 12px 0 7px;
-    }
-
-    .movie-card p {
-      color: #aaa;
-      font-size: 12px;
-      line-height: 1.5;
-      min-height: 32px;
-      margin-bottom: 12px;
-    }
-
-    .view-movie {
-      display: block;
-      padding: 10px 6px;
-      background: #e50914;
-      color: white;
-      text-decoration: none;
-      text-align: center;
-      border-radius: 7px;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    .home-link {
-      margin-top: 30px;
-    }
-
-    footer {
-      text-align: center;
-      color: #777;
-      padding: 25px 15px;
-      border-top: 1px solid #222;
-      font-size: 13px;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        padding: 16px;
-      }
-
-      video {
-        max-height: 300px;
-      }
-
-      .movie-card {
-        flex-basis: 155px;
-      }
-    }
-  </style>
+<style>
+:root {
+  --bg: #080808;
+  --panel: #171717;
+  --red: #e50914;
+  --white: #fff;
+  --muted: #b3b3b3;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+}
+a { color: inherit; text-decoration: none; }
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(8,8,8,.97);
+  border-bottom: 1px solid #292929;
+  padding: 15px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+.logo {
+  font-size: 27px;
+  font-weight: 900;
+  color: var(--red);
+  letter-spacing: -1px;
+}
+.logo span { color: white; }
+nav { display: flex; gap: 18px; font-size: 14px; }
+nav a:hover { color: var(--red); }
+main { max-width: 1200px; margin: auto; padding: 25px 5%; }
+.hero {
+  min-height: 330px;
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  align-items: end;
+  padding: 28px;
+  background:
+    linear-gradient(0deg, rgba(0,0,0,.95), rgba(0,0,0,.12)),
+    url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1400&q=85")
+    center/cover;
+}
+.hero h1 { font-size: clamp(32px, 6vw, 54px); margin: 0 0 12px; }
+.tag { color: #ff4b55; font-weight: bold; letter-spacing: 2px; font-size: 12px; }
+.meta { color: #ddd; font-size: 14px; line-height: 1.8; }
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(230px, .8fr);
+  gap: 25px;
+  margin-top: 28px;
+}
+.panel {
+  background: var(--panel);
+  border: 1px solid #282828;
+  border-radius: 13px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+h2 { font-size: 21px; margin: 0 0 16px; }
+video {
+  display: block;
+  width: 100%;
+  background: #000;
+  border-radius: 9px;
+  aspect-ratio: 16 / 9;
+}
+p { color: #d0d0d0; line-height: 1.7; }
+.button {
+  display: inline-block;
+  border: 0;
+  border-radius: 7px;
+  padding: 13px 17px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.primary { background: var(--red); color: white; }
+.primary:hover { background: #b80710; }
+button:disabled { opacity: .65; cursor: wait; }
+#watchlistMessage { font-size: 13px; overflow-wrap: anywhere; }
+.poster {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 9px;
+  background: #222;
+}
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.movie-card { min-width: 0; }
+.movie-card img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform .2s;
+}
+.movie-card a:hover img { transform: scale(1.03); }
+.movie-card h3 { font-size: 14px; margin: 9px 0 5px; }
+.movie-card small { color: var(--muted); }
+footer {
+  text-align: center;
+  padding: 28px 15px;
+  color: #999;
+  border-top: 1px solid #292929;
+  font-size: 13px;
+}
+@media (max-width: 700px) {
+  header { padding: 13px 4%; }
+  .logo { font-size: 23px; }
+  nav { gap: 12px; font-size: 12px; }
+  main { padding: 18px 4%; }
+  .hero { min-height: 260px; padding: 20px; }
+  .content { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 
 <body>
-
 <header>
-  <span class="logo">AFRI</span>FLIX
+  <a class="logo" href="index.html">Afri<span>Flix</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="movies.html">Movies</a>
+    <a href="index.html">My Account</a>
+  </nav>
 </header>
 
-<main class="container">
+<main>
+  <section class="hero">
+    <div>
+      <div class="tag">AFRIFLIX ORIGINALS • AFRICAN CINEMA</div>
+      <h1>Hidden Truth</h1>
+      <div class="meta">Thriller • 2026 • ⭐ 4.5/5</div>
+    </div>
+  </section>
 
-  <a class="back" href="movies.html">← Back to Movies</a>
+  <div class="content">
+    <div>
+      <section class="panel">
+        <h2>▶ Now Playing</h2>
+        <video controls playsinline preload="metadata"
+          poster="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=80">
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+          Your browser does not support video playback.
+        </video>
+        <p style="font-size:12px">Demo video only — this is not the full movie.</p>
+      </section>
 
-  <h1>Hidden Truth</h1>
+      <section class="panel">
+        <h2>About This Movie</h2>
+        <p>
+          A shocking discovery exposes secrets that powerful people would
+          rather keep buried. As the clues come together, one determined
+          investigator risks everything to uncover the truth. But the closer
+          the investigation gets to the answers, the more dangerous the game
+          becomes.
+        </p>
+        <p><strong>Genre:</strong> Thriller</p>
+        <p><strong>Release year:</strong> 2026</p>
+        <p><strong>Rating:</strong> ⭐ 4.5/5 (sample rating)</p>
+      </section>
 
-  <p class="genre">Thriller • 2026 • 4.5/5 ⭐</p>
+      <section class="panel">
+        <h2>❤️ Add to Your Watchlist</h2>
+        <p>Save this movie to your personal AfriFlix watchlist.</p>
+        <button id="watchlistButton" class="button primary">
+          ♡ Add to Watchlist
+        </button>
+        <p id="watchlistMessage" role="status" aria-live="polite"></p>
+      </section>
+    </div>
 
-  <p class="now-playing">▶ NOW PLAYING</p>
+    <aside>
+      <section class="panel">
+        <h2>Movie Poster</h2>
+        <img class="poster"
+          src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=85"
+          alt="Hidden Truth poster artwork">
+      </section>
 
-  <video controls playsinline preload="metadata"
-         poster="https://picsum.photos/900/500?random=104">
-    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-    Your browser does not support video playback.
-  </video>
+      <section class="panel">
+        <h2>More Like This</h2>
+        <div class="movie-grid">
+          <article class="movie-card">
+            <a href="movie.html">
+              <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80" alt="Kingdom Rising">
+              <h3>Kingdom Rising</h3>
+            </a>
+            <small>Drama</small>
+          </article>
 
-  <p class="rating">
-    ⭐ <strong>4.5/5</strong>
-    <span>— AfriFlix Rating</span>
-  </p>
+          <article class="movie-card">
+            <a href="last-journey.html">
+              <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=400&q=80" alt="The Last Journey">
+              <h3>The Last Journey</h3>
+            </a>
+            <small>Adventure</small>
+          </article>
 
-  <p class="info">
-    A mysterious secret begins to unravel when a young protagonist
-    discovers a hidden truth that changes everything. What starts as
-    a simple discovery soon becomes a dangerous journey filled with
-    fear, mystery and unexpected twists.
-  </p>
-  <button id="watchlistButton" type="button">
-  ❤️ Add to Watchlist
-</button><p id="watchlistMessage" role="status"></p><style>
-  #watchlistButton {
-    background: #292929;
-    color: white;
-    border: 1px solid #444;
-    padding: 13px 18px;
-    border-radius: 9px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-  }
+          <article class="movie-card">
+            <a href="city-of-dreams.html">
+              <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=400&q=80" alt="City of Dreams">
+              <h3>City of Dreams</h3>
+            </a>
+            <small>Drama</small>
+          </article>
 
-  #watchlistButton:hover {
-    background: #e50914;
-  }
+          <article class="movie-card">
+            <a href="beyond-the-storm.html">
+              <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=400&q=80" alt="Beyond the Storm">
+              <h3>Beyond the Storm</h3>
+            </a>
+            <small>Drama</small>
+          </article>
 
-  #watchlistMessage {
-    color: #aaa;
-    margin-top: 10px;
-    font-size: 14px;
-  }
-</style>
+          <article class="movie-card">
+            <a href="broken-promise.html">
+              <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=400&q=80" alt="Broken Promise">
+              <h3>Broken Promise</h3>
+            </a>
+            <small>Drama</small>
+          </article>
 
-  <h2 class="section-title">🎬 More Like This</h2>
+          <article class="movie-card">
+            <a href="final-mission.html">
+              <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=400&q=80" alt="Final Mission">
+              <h3>Final Mission</h3>
+            </a>
+            <small>Action</small>
+          </article>
 
-  <p class="section-subtitle">
-    More stories you may enjoy.
-  </p>
-
-  <div class="recommendations">
-
-    <article class="movie-card">
-      <img
-        src="https://picsum.photos/seed/villagesecrets/300/420"
-        alt="Village Secrets poster">
-
-      <h3>Village Secrets</h3>
-
-      <p>Mystery • 2026 ⭐ 4.2/5</p>
-
-      <a class="view-movie" href="village-secrets.html">View Movie</a>
-    </article>
-
-    <article class="movie-card">
-      <img
-        src="https://picsum.photos/seed/finalmission/300/420"
-        alt="Final Mission poster">
-
-      <h3>Final Mission</h3>
-
-      <p>Action • 2026 ⭐ 4.5/5</p>
-
-      <a class="view-movie" href="final-mission.html">View Movie</a>
-    </article>
-
+          <article class="movie-card">
+            <a href="village-secrets.html">
+              <img src="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=400&q=80" alt="Village Secrets">
+              <h3>Village Secrets</h3>
+            </a>
+            <small>Mystery</small>
+          </article>
+        </div>
+      </section>
+    </aside>
   </div>
-
-  <a class="back home-link" href="index.html">🏠 Back to Home</a>
-
 </main>
 
-<footer>
-  © 2026 AfriFlix — African Stories, Global Entertainment
-</footer>
+<footer>© 2026 AfriFlix • Celebrating African Cinema 🌍</footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
-const supabaseClient = supabase.createClient(
-  "https://caufbkwgwbudwpqhdgqa.supabase.co",
-  "sb_publishable_dmWG86ick8T5Z3lUV9Fiwg_tM4mpffo"
-);
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(() => {
+  const supabaseClient = window.supabase.createClient(
+    "https://caufbkwgwbudwpqhdgqa.supabase.co",
+    "sb_publishable_dmWG86ick8T5Z3lUV9Fiwg_tM4mpffo"
+  );
 
-const watchlistButton = document.getElementById("watchlistButton");
-const watchlistMessage = document.getElementById("watchlistMessage");
+  const button = document.getElementById("watchlistButton");
+  const message = document.getElementById("watchlistMessage");
+  const movieName = "Hidden Truth";
 
-watchlistButton.addEventListener("click", async function () {
-  watchlistButton.disabled = true;
-  watchlistMessage.textContent = "Saving to your watchlist...";
+  button.addEventListener("click", async () => {
+    button.disabled = true;
+    message.textContent = "Checking your account...";
 
-  try {
-    const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
-    if (sessionError) throw sessionError;
+    try {
+      const { data, error } = await supabaseClient.auth.getSession();
+      if (error) throw error;
 
-    if (!session) {
-      watchlistMessage.textContent = "Please sign in on AfriFlix first, then try again.";
-      return;
+      if (!data.session) {
+        message.textContent =
+          "Please sign in on the AfriFlix home page first, then return here.";
+        return;
+      }
+
+      const user = data.session.user;
+
+      const { data: existing, error: checkError } = await supabaseClient
+        .from("watchlist")
+        .select("id")
+        .eq("user_id", user.id)
+        .eq("movie_name", movieName)
+        .maybeSingle();
+
+      if (checkError) throw checkError;
+
+      if (existing) {
+        button.textContent = "✓ Already in Watchlist";
+        message.textContent = movieName + " is already in your watchlist ❤️";
+        return;
+      }
+
+      const { error: saveError } = await supabaseClient
+        .from("watchlist")
+        .insert([{ user_id: user.id, movie_name: movieName }]);
+
+      if (saveError) throw saveError;
+
+      button.textContent = "✓ Added to Watchlist";
+      message.textContent =
+        movieName + " was added to your watchlist successfully! ❤️";
+    } catch (error) {
+      console.error("Watchlist error:", error);
+      message.textContent =
+        "Could not save the movie. Check your connection and try again.";
+    } finally {
+      button.disabled = false;
     }
-
-    const { data: existingMovie, error: checkError } = await supabaseClient
-      .from("watchlist").select("id")
-      .eq("user_id", session.user.id)
-      .eq("movie_name", "Hidden Truth").maybeSingle();
-    if (checkError) throw checkError;
-
-    if (existingMovie) {
-      watchlistMessage.textContent = "Hidden Truth is already in your watchlist ❤️";
-      return;
-    }
-
-    const { error } = await supabaseClient.from("watchlist").insert({
-      user_id: session.user.id,
-      movie_name: "Hidden Truth"
-    });
-    if (error) throw error;
-
-    watchlistMessage.textContent = "Hidden Truth saved to your cloud watchlist! ❤️";
-  } catch (error) {
-    console.error(error);
-    watchlistMessage.textContent = "Could not save the movie. Please try again.";
-  } finally {
-    watchlistButton.disabled = false;
-  }
-});
+  });
+})();
 </script>
 </body>
 </html>
