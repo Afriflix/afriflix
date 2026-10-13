@@ -1,0 +1,581 @@
+AfriFlix — "watchlist.html"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Watchlist | AfriFlix</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #080808;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background: #111;
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      color: #fff;
+      font-size: 25px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: #e50914;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #e50914;
+    }
+
+    .hero {
+      padding: 40px 5%;
+      background:
+        linear-gradient(90deg, #080808, rgba(8,8,8,.72)),
+        url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1400&q=85")
+        center/cover;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 6vw, 46px);
+    }
+
+    .accent {
+      color: #e50914;
+    }
+
+    .hero p {
+      color: #ddd;
+      line-height: 1.6;
+    }
+
+    main {
+      padding: 28px 5% 50px;
+      min-height: 45vh;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .toolbar h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    button,
+    .button-link {
+      border: 0;
+      border-radius: 5px;
+      padding: 11px 15px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .refresh-button {
+      background: #292929;
+      color: white;
+    }
+
+    .refresh-button:hover {
+      background: #3b3b3b;
+    }
+
+    .primary-button {
+      background: #e50914;
+      color: white;
+    }
+
+    .primary-button:hover {
+      background: #b80710;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    #status {
+      color: #ccc;
+      line-height: 1.7;
+      margin: 14px 0;
+      overflow-wrap: anywhere;
+    }
+
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .movie-card {
+      min-width: 0;
+      background: #171717;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .poster-link {
+      display: block;
+      text-decoration: none;
+      color: white;
+    }
+
+    .movie-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      background: #222;
+    }
+
+    .movie-info {
+      padding: 12px;
+    }
+
+    .movie-info h3 {
+      font-size: 15px;
+      line-height: 1.4;
+      margin: 0 0 8px;
+      overflow-wrap: anywhere;
+    }
+
+    .movie-info p {
+      color: #bbb;
+      font-size: 12px;
+      margin: 0 0 12px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .card-actions button,
+    .card-actions a {
+      flex: 1;
+      text-align: center;
+      padding: 10px 8px;
+      font-size: 12px;
+    }
+
+    .remove-button {
+      background: #292929;
+      color: #fff;
+    }
+
+    .remove-button:hover {
+      background: #444;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 35px 15px;
+      background: #141414;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    .empty-state h3 {
+      margin-top: 0;
+    }
+
+    .empty-state p {
+      color: #bbb;
+      line-height: 1.6;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    footer {
+      border-top: 1px solid #292929;
+      color: #aaa;
+      text-align: center;
+      padding: 22px 12px;
+      font-size: 13px;
+    }
+
+    @media (min-width: 700px) {
+      .movie-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 14px 4%;
+      }
+
+      nav {
+        gap: 12px;
+      }
+
+      main {
+        padding-left: 4%;
+        padding-right: 4%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a class="logo" href="index.html">Afri<span>Flix</span></a>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="movies.html">Movies</a>
+      <a href="watchlist.html" class="active">My Watchlist</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>My <span class="accent">Watchlist</span> ❤️</h1>
+    <p>Your saved movies, all in one place.</p>
+  </section>
+
+  <main>
+    <div class="toolbar">
+      <h2>Saved Movies</h2>
+      <button id="refreshButton" class="refresh-button">
+        ↻ Refresh
+      </button>
+    </div>
+
+    <p id="status" aria-live="polite">Connecting to your account...</p>
+
+    <div id="movieGrid" class="movie-grid"></div>
+
+    <section id="emptyState" class="empty-state hidden">
+      <h3>Your watchlist is empty 🎬</h3>
+      <p>
+        Explore AfriFlix and add movies you want to watch later.
+      </p>
+      <a class="button-link primary-button" href="movies.html">
+        Explore Movies
+      </a>
+    </section>
+
+    <section id="signInState" class="empty-state hidden">
+      <h3>Please sign in first</h3>
+      <p>
+        Sign in on the AfriFlix homepage using the account you used
+        to save your movies, then return to this page.
+      </p>
+      <a class="button-link primary-button" href="index.html">
+        Go to AfriFlix Home
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 AfriFlix • Celebrating African Cinema 🌍
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    (() => {
+      const supabaseClient = window.supabase.createClient(
+        "https://caufbkwgwbudwpqhdgqa.supabase.co",
+        "sb_publishable_dmWG86ick8T5Z3lUV9Fiwg_tM4mpffo"
+      );
+
+      const status = document.getElementById("status");
+      const movieGrid = document.getElementById("movieGrid");
+      const emptyState = document.getElementById("emptyState");
+      const signInState = document.getElementById("signInState");
+      const refreshButton = document.getElementById("refreshButton");
+
+      /*
+        Keep movie names consistent with the names saved
+        by the individual movie pages.
+      */
+      const movieDetails = {
+        "Kingdom Rising": {
+          url: "movie.html",
+          genre: "Drama • 2026",
+          image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=500&q=80"
+        },
+        "The Last Journey": {
+          url: "last-journey.html",
+          genre: "Adventure • 2026",
+          image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=500&q=80"
+        },
+        "City of Dreams": {
+          url: "city-of-dreams.html",
+          genre: "Drama • 2026",
+          image: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=500&q=80"
+        },
+        "Hidden Truth": {
+          url: "hidden-truth.html",
+          genre: "Thriller • 2026",
+          image: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=500&q=80"
+        },
+        "Beyond the Storm": {
+          url: "beyond-the-storm.html",
+          genre: "Adventure • 2026",
+          image: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=500&q=80"
+        },
+        "Broken Promise": {
+          url: "broken-promise.html",
+          genre: "Drama • 2026",
+          image: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=500&q=80"
+        },
+        "Final Mission": {
+          url: "final-mission.html",
+          genre: "Action • 2026",
+          image: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=500&q=80"
+        },
+        "Village Secrets": {
+          url: "village-secrets.html",
+          genre: "Mystery • 2026",
+          image: "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=500&q=80"
+        }
+      };
+
+      let currentUser = null;
+      let savedMovies = [];
+      let busy = false;
+
+      function setStatus(text) {
+        status.textContent = text;
+      }
+
+      function showSignIn() {
+        currentUser = null;
+        movieGrid.replaceChildren();
+        emptyState.classList.add("hidden");
+        signInState.classList.remove("hidden");
+        setStatus("You need to sign in to view your saved movies.");
+      }
+
+      function createMovieCard(movie) {
+        const details = movieDetails[movie.movie_name] || {
+          url: "movies.html",
+          genre: "AfriFlix",
+          image: ""
+        };
+
+        const card = document.createElement("article");
+        card.className = "movie-card";
+
+        const posterLink = document.createElement("a");
+        posterLink.className = "poster-link";
+        posterLink.href = details.url;
+
+        const image = document.createElement("img");
+        image.src = details.image ||
+          "https://placehold.co/500x750/171717/ffffff?text=AfriFlix";
+        image.alt = movie.movie_name + " poster";
+        image.loading = "lazy";
+
+        const info = document.createElement("div");
+        info.className = "movie-info";
+
+        const title = document.createElement("h3");
+        title.textContent = movie.movie_name;
+
+        const genre = document.createElement("p");
+        genre.textContent = details.genre;
+
+        const actions = document.createElement("div");
+        actions.className = "card-actions";
+
+        const openLink = document.createElement("a");
+        openLink.className = "button-link primary-button";
+        openLink.href = details.url;
+        openLink.textContent = "Open Movie";
+
+        const removeButton = document.createElement("button");
+        removeButton.className = "remove-button";
+        removeButton.textContent = "Remove";
+        removeButton.addEventListener("click", () => {
+          removeMovie(movie);
+        });
+
+        posterLink.appendChild(image);
+        info.append(title, genre);
+        actions.append(openLink, removeButton);
+        info.appendChild(actions);
+        card.append(posterLink, info);
+
+        return card;
+      }
+
+      function renderMovies() {
+        movieGrid.replaceChildren();
+        signInState.classList.add("hidden");
+
+        if (savedMovies.length === 0) {
+          emptyState.classList.remove("hidden");
+          setStatus("You have 0 saved movies.");
+          return;
+        }
+
+        emptyState.classList.add("hidden");
+
+        const fragment = document.createDocumentFragment();
+
+        savedMovies.forEach((movie) => {
+          fragment.appendChild(createMovieCard(movie));
+        });
+
+        movieGrid.appendChild(fragment);
+        setStatus(
+          "You have " + savedMovies.length +
+          (savedMovies.length === 1 ? " saved movie." : " saved movies.")
+        );
+      }
+
+      async function loadWatchlist() {
+        if (busy) return;
+        busy = true;
+        refreshButton.disabled = true;
+        setStatus("Loading your watchlist...");
+
+        try {
+          const { data: sessionData, error: sessionError } =
+            await supabaseClient.auth.getSession();
+
+          if (sessionError) throw sessionError;
+
+          if (!sessionData.session) {
+            showSignIn();
+            return;
+          }
+
+          currentUser = sessionData.session.user;
+
+          const { data, error } = await supabaseClient
+            .from("watchlist")
+            .select("id, user_id, movie_name, created_at")
+            .eq("user_id", currentUser.id)
+            .order("created_at", { ascending: false });
+
+          if (error) throw error;
+
+          savedMovies = data || [];
+          renderMovies();
+
+        } catch (error) {
+          console.error("Loading watchlist failed:", error);
+          setStatus(
+            "We couldn't load your watchlist. Check your connection and try again."
+          );
+        } finally {
+          busy = false;
+          refreshButton.disabled = false;
+        }
+      }
+
+      async function removeMovie(movie) {
+        if (busy || !currentUser) return;
+
+        const confirmed = window.confirm(
+          'Remove "' + movie.movie_name + '" from your watchlist?'
+        );
+
+        if (!confirmed) return;
+
+        busy = true;
+        refreshButton.disabled = true;
+        setStatus("Removing movie...");
+
+        try {
+          /*
+            Delete only the selected record belonging
+            to the currently signed-in user.
+          */
+          const { data, error } = await supabaseClient
+            .from("watchlist")
+            .delete()
+            .eq("id", movie.id)
+            .eq("user_id", currentUser.id)
+            .select("id");
+
+          if (error) throw error;
+
+          if (!data || data.length === 0) {
+            setStatus(
+              "The movie was not removed. Please refresh and try again."
+            );
+            return;
+          }
+
+          savedMovies = savedMovies.filter(
+            (item) => item.id !== movie.id
+          );
+
+          renderMovies();
+          setStatus(movie.movie_name + " was removed from your watchlist.");
+
+        } catch (error) {
+          console.error("Removing movie failed:", error);
+          setStatus(
+            "We couldn't remove the movie. Check your connection and try again."
+          );
+        } finally {
+          busy = false;
+          refreshButton.disabled = false;
+        }
+      }
+
+      refreshButton.addEventListener("click", loadWatchlist);
+
+      supabaseClient.auth.onAuthStateChange((event, session) => {
+        if (event === "SIGNED_OUT" || !session) {
+          showSignIn();
+        } else if (event === "SIGNED_IN" || event === "USER_UPDATED") {
+          loadWatchlist();
+        }
+      });
+
+      loadWatchlist();
+    })();
+  </script>
+</body>
+</html>
