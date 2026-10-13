@@ -1,661 +1,362 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Movies | AfriFlix</title>
+
   <style>
-@media (max-width: 500px) {
-  .movie {
-    font-size: 14px;
-  }
-}
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #080808;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background: #111;
+      padding: 16px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      color: white;
+      text-decoration: none;
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #e50914;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #e50914;
+    }
+
+    .hero {
+      padding: 45px 5%;
+      background:
+        linear-gradient(90deg, #080808, rgba(8,8,8,.7)),
+        url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1400&q=85")
+        center/cover;
+    }
+
+    .hero p {
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 48px);
+      margin: 0 0 12px;
+    }
+
+    .accent {
+      color: #e50914;
+    }
+
+    main {
+      padding: 28px 5% 45px;
+    }
+
+    .tools {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .tools input,
+    .tools select {
+      background: #1b1b1b;
+      border: 1px solid #444;
+      color: white;
+      border-radius: 6px;
+      padding: 13px;
+      font-size: 15px;
+    }
+
+    .tools input {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .tools select {
+      min-width: 145px;
+    }
+
+    .section-heading {
+      margin: 0 0 20px;
+      font-size: 22px;
+    }
+
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .movie-card {
+      background: #171717;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform .2s;
+    }
+
+    .movie-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .movie-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      background: #222;
+    }
+
+    .movie-info {
+      padding: 12px;
+    }
+
+    .movie-info h3 {
+      font-size: 15px;
+      margin: 0 0 8px;
+    }
+
+    .movie-info p {
+      color: #bbb;
+      font-size: 12px;
+      margin: 0 0 8px;
+    }
+
+    .rating {
+      color: #f5c518;
+      font-size: 13px;
+    }
+
+    #noResults {
+      display: none;
+      color: #ccc;
+      padding: 25px 0;
+    }
+
+    footer {
+      border-top: 1px solid #292929;
+      padding: 22px 12px;
+      text-align: center;
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    @media (min-width: 700px) {
+      .movie-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
   </style>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Movies | AfriFlix</title>
-
-<meta name="description" content="Browse African movies and entertainment on AfriFlix.">
-
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background: #080808;
-  color: white;
-  font-family: Arial, sans-serif;
-}
-
-/* HEADER */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: #090909;
-  padding: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.logo {
-  font-size: 25px;
-  font-weight: bold;
-}
-
-.logo span {
-  color: #e50914;
-}
-  .language {
-  display: flex;
-  gap: 6px;
-}
-
-.language button {
-  background: #1b1b1b;
-  color: white;
-  border: 1px solid #333;
-  padding: 7px 10px;
-  border-radius: 18px;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.language button:hover {
-  background: #292929;
-}
-
-/* NAVIGATION */
-.main-nav {
-  display: flex;
-  gap: 10px;
-  padding: 10px 15px;
-  background: #111;
-  border-bottom: 1px solid #222;
-  position: sticky;
-  top: 70px;
-  z-index: 99;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.main-nav::-webkit-scrollbar {
-  display: none;
-}
-
-.main-nav a {
-  white-space: nowrap;
-  background: #1b1b1b;
-  color: white;
-  border: 1px solid #333;
-  padding: 9px 14px;
-  border-radius: 20px;
-  text-decoration: none;
-  font-size: 13px;
-}
-
-/* PAGE */
-.page {
-  padding: 25px 15px 50px;
-  max-width: 1200px;
-  margin: auto;
-}
-
-.page-title {
-  font-size: 28px;
-  margin-bottom: 8px;
-}
-
-.page-subtitle {
-  color: #999;
-  margin-bottom: 25px;
-}
-
-/* MOVIE GRID */
-.movies {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-}
-
-.movie {
-  background: #151515;
-  border-radius: 12px;
-  overflow: hidden;
-  text-decoration: none;
-  color: white;
-  transition: transform 0.2s ease;
-}
-
-.movie:hover {
-  transform: translateY(-4px);
-}
-
-.movie img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  display: block;
-}
-
-.movie-info {
-  padding: 12px;
-}
-
-.movie-info h3 {
-  font-size: 16px;
-  margin-bottom: 6px;
-}
-
-.movie-info p {
-  color: #999;
-  font-size: 13px;
-}
-
-/* FOOTER */
-footer {
-  text-align: center;
-  color: #777;
-  padding: 30px 15px;
-  border-top: 1px solid #222;
-  margin-top: 30px;
-}
-
-@media (min-width: 700px) {
-  .movies {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .movie img {
-    height: 300px;
-  }
-}
-</style>
 </head>
 
 <body>
+  <header>
+    <a class="logo" href="index.html">Afri<span>Flix</span></a>
 
-<header>
-  <div class="logo">
-    Afri<span>Flix</span>
-  </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="movies.html">Movies</a>
+      <a href="index.html">My Account</a>
+    </nav>
+  </header>
 
-  <div class="language">
-    <button onclick="setLanguage('en')">🇬🇧 EN</button>
-    <button onclick="setLanguage('fr')">🇫🇷 FR</button>
-  </div>
-</header>
-
-<nav class="main-nav">
-  <a href="index.html">🏠 Home</a>
-  <a href="movies.html">🎬 Movies</a>
-  <a href="index.html#watchlist">❤️ My Watchlist</a>
-</nav>
-
-<main class="page">
-  <section style="
-  background:linear-gradient(135deg,#151515,#090909);
-  border-radius:16px;
-  padding:25px 20px;
-  margin-bottom:30px;
-  border:1px solid #222;
-">
-
-  <p id="featuredLabel" style="
-  
-  <section>
-
-  <h1 id="moviesPageTitle" class="page-title">🎬 Movies</h1>
-<!-- Featured Movie -->
-<section style="
-  background:#111;
-  border-radius:14px;
-  padding:18px;
-  margin-bottom:25px;
-  border:1px solid #222;
-  text-align:center;
-">
-
-  <p id="featuredLabel" style="
-    color:#e50914;
-    font-size:11px;
-    font-weight:bold;
-    margin:0 0 10px;
-  ">⭐ FEATURED MOVIE</p>
-
-  <img
-    src="https://picsum.photos/seed/kingdomrising/300/400"
-    alt="Kingdom Rising"
-    style="
-      width:300px;
-      height:100px;
-      object-fit:cover;
-      border-radius:8px;
-      display:block;
-      margin:0 auto 12px;
-    "
-  >
-
-  <h2 id="featuredTitle" style="
-    font-size:21px;
-    margin:0 0 6px;
-  ">Kingdom Rising</h2>
-
-  <p id="featuredMeta" style="
-    color:#999;
-    font-size:12px;
-    margin:0 0 8px;
-  ">Drama • 2026 ⭐ 8.5/10</p>
-
-  <p id="featuredDescription" style="
-    color:#aaa;
-    font-size:12px;
-    margin:0 auto 12px;
-  ">A powerful story of courage, ambition and survival.</p>
-
-  <a
-    id="featuredButton"
-    href="movie.html"
-    style="
-      display:inline-block;
-      background:#e50914;
-      color:white;
-      padding:9px 16px;
-      border-radius:18px;
-      text-decoration:none;
-      font-size:12px;
-      font-weight:bold;
-    "
-  >▶ Watch Now</a>
-
-</section>
-  <h2 style="margin-top:30px; margin-bottom:15px;">
-    🆕 Recently Added
-  </h2>
-
-  <p style="color:#888; font-size:13px; margin-bottom:20px;">
-    Fresh stories added to AfriFlix.
-  </p>
-
-  <p id="moviesPageSubtitle" class="page-subtitle">
-    Explore movies and stories on AfriFlix.
-  </p>
-
-  <div style="
-      display:flex;
-      gap:15px;
-      overflow-x:auto;
-      padding-bottom:10px;
-  ">
-
-    <!-- Beyond The Storm -->
-    <div style="
-        min-width:48%;
-        background:#151515;
-        border-radius:12px;
-        padding:12px;
-        border:1px solid #222;
-    ">
-
-      <img
-        src="https://picsum.photos/seed/beyondstorm/500/750"
-        alt="Beyond The Storm"
-        style="
-          width:100%;
-          height:220px;
-          object-fit:cover;
-          border-radius:8px;
-        "
-      >
-
-      <h3 style="font-size:15px; margin:12px 0 6px;">
-        Beyond The Storm
-      </h3>
-
-      <p style="
-        color:#aaa;
-        font-size:12px;
-        margin:0 0 12px;
-      ">
-        Action • 2026 &nbsp; ⭐ 8.2/10
-      </p>
-
-      <a
-        href="beyond-the-storm.html"
-        style="
-          display:inline-block;
-          background:#e50914;
-          color:white;
-          padding:8px 13px;
-          border-radius:18px;
-          text-decoration:none;
-          font-size:12px;
-          font-weight:bold;
-        "
-      >
-        ▶ View Details
-      </a>
-
-    </div>
-
-
-    <!-- Final Mission -->
-    <div style="
-        min-width:48%;
-        background:#151515;
-        border-radius:12px;
-        padding:12px;
-        border:1px solid #222;
-    ">
-
-      <img
-        src="https://picsum.photos/seed/finalmission/500/750"
-        alt="Final Mission"
-        style="
-          width:100%;
-          height:220px;
-          object-fit:cover;
-          border-radius:8px;
-        "
-      >
-
-      <h3 style="font-size:15px; margin:12px 0 6px;">
-        Final Mission
-      </h3>
-
-      <p style="
-        color:#aaa;
-        font-size:12px;
-        margin:0 0 12px;
-      ">
-        Action • 2026 &nbsp; ⭐ 8.7/10
-      </p>
-
-      <a
-        href="final-mission.html"
-        style="
-          display:inline-block;
-          background:#e50914;
-          color:white;
-          padding:8px 13px;
-          border-radius:18px;
-          text-decoration:none;
-          font-size:12px;
-          font-weight:bold;
-        "
-      >
-        ▶ View Details
-      </a>
-
-    </div>
-
-  </div>
-
+  <section class="hero">
+    <h1>Discover <span class="accent">African Cinema</span></h1>
+    <p>Explore stories, adventures, mysteries and dramas on AfriFlix.</p>
   </section>
-  
-  <div style="margin-bottom:25px;">
-  <input
-    type="text"
-    id="movieSearch"
-    placeholder="🔎 Search movies..."
-    onkeyup="searchMovies()"
-    style="
-      width:100%;
-      padding:14px 16px;
-      background:#151515;
-      color:white;
-      border:1px solid #333;
-      border-radius:25px;
-      font-size:15px;
-      outline:none;
-    "
-  >
-  </div>
-  <div style="display:flex; gap:8px; overflow-x:auto; margin-bottom:25px; padding-bottom:5px;">
 
-  <button id="allFilter" onclick="filterMovies('all')" style="padding:9px 15px; border:none; border-radius:20px; background:#e50914; color:white; white-space:nowrap; cursor:pointer;">
-    All
-  </button>
+  <main>
+    <div class="tools">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Search movies..."
+        aria-label="Search movies"
+      >
 
-  <button id="actionFilter" onclick="filterMovies('Action')" style="padding:9px 15px; border:none; border-radius:20px; background:#1b1b1b; color:white; white-space:nowrap; cursor:pointer;">
-    Action
-  </button>
+      <select id="genreFilter" aria-label="Filter by genre">
+        <option value="all">All Genres</option>
+        <option value="drama">Drama</option>
+        <option value="adventure">Adventure</option>
+        <option value="thriller">Thriller</option>
+        <option value="action">Action</option>
+        <option value="mystery">Mystery</option>
+      </select>
+    </div>
 
-  <button id="dramaFilter" onclick="filterMovies('Drama')" style="padding:9px 15px; border:none; border-radius:20px; background:#1b1b1b; color:white; white-space:nowrap; cursor:pointer;">
-    Drama
-  </button>
+    <h2 class="section-heading">All Movies <span class="accent">🎬</span></h2>
 
-  <button id="romanceFilter" onclick="filterMovies('Romance')" style="padding:9px 15px; border:none; border-radius:20px; background:#1b1b1b; color:white; white-space:nowrap; cursor:pointer;">
-    Romance
-  </button>
+    <div class="movie-grid" id="moviesContainer">
 
-  <button id="thrillerFilter" onclick="filterMovies('Thriller')" style="padding:9px 15px; border:none; border-radius:20px; background:#1b1b1b; color:white; white-space:nowrap; cursor:pointer;">
-    Thriller
-  </button>
+      <a class="movie-card" href="movie.html"
+         data-title="Kingdom Rising" data-genre="drama">
+        <img
+          src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=500&q=80"
+          alt="Kingdom Rising poster" loading="lazy">
+        <div class="movie-info">
+          <h3>Kingdom Rising</h3>
+          <p>Drama • 2026</p>
+          <span class="rating">⭐ 4.5/5</span>
+        </div>
+      </a>
 
-  </div>
-<p id="noMoviesMessage" style="display:none; text-align:center; color:#999; padding:30px 10px;">
-  😔 No movies found.
-</p>
-  <h2 id="latestMoviesTitle" style="
-  font-size:22px;
-  margin-bottom:15px;
-">
-  🎬 Latest Movies
-  </h2>
-  
-  <div class="movies">
+      <a class="movie-card" href="last-journey.html"
+         data-title="The Last Journey" data-genre="adventure">
+        <img
+          src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=500&q=80"
+          alt="The Last Journey poster" loading="lazy">
+        <div class="movie-info">
+          <h3>The Last Journey</h3>
+          <p>Adventure • 2026</p>
+          <span class="rating">⭐ 4.4/5</span>
+        </div>
+      </a>
 
-    <a href="movie.html" class="movie">
-      <img src="https://picsum.photos/400/600?random=101">
-      <div class="movie-info">
-        <h3 id="kingdomTitle">Kingdom Rising</h3>
-        <p id="kingdomGenre">Drama • 2026</p>
-      </div>
-    </a>
+      <a class="movie-card" href="city-of-dreams.html"
+         data-title="City of Dreams" data-genre="drama">
+        <img
+          src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=500&q=80"
+          alt="City of Dreams poster" loading="lazy">
+        <div class="movie-info">
+          <h3>City of Dreams</h3>
+          <p>Drama • 2026</p>
+          <span class="rating">⭐ 4.2/5</span>
+        </div>
+      </a>
 
-    <a href="last-journey.html" class="movie">
-      <img src="https://picsum.photos/400/600?random=102">
-      <div class="movie-info">
-        <h3 id="lastJourneyTitle">The Last Journey</h3>
-        <p id="lastJourneyGenre">Adventure • 2026</p>
-      </div>
-    </a>
+      <a class="movie-card" href="hidden-truth.html"
+         data-title="Hidden Truth" data-genre="thriller">
+        <img
+          src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=500&q=80"
+          alt="Hidden Truth poster" loading="lazy">
+        <div class="movie-info">
+          <h3>Hidden Truth</h3>
+          <p>Thriller • 2026</p>
+          <span class="rating">⭐ 4.3/5</span>
+        </div>
+      </a>
 
-    <a href="city-of-dreams.html" class="movie">
-      <img src="https://picsum.photos/400/600?random=103">
-      <div class="movie-info">
-        <h3 id="cityDreamsTitle">City of Dreams</h3>
-        <p id="cityDreamsGenre">Drama • 2026</p>
-      </div>
-    </a>
+      <a class="movie-card" href="beyond-the-storm.html"
+         data-title="Beyond the Storm" data-genre="adventure">
+        <img
+          src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=500&q=80"
+          alt="Beyond the Storm poster" loading="lazy">
+        <div class="movie-info">
+          <h3>Beyond the Storm</h3>
+          <p>Adventure • 2026</p>
+          <span class="rating">⭐ 4.1/5</span>
+        </div>
+      </a>
 
-    <a href="hidden-truth.html" class="movie">
-      <img src="https://picsum.photos/400/600?random=104">
-      <div class="movie-info">
-        <h3 id="hiddenTruthTitle">Hidden Truth</h3>
-        <p id="hiddenTruthGenre">Thriller • 2026</p>
-      </div>
-    </a>
+      <a class="movie-card" href="broken-promise.html"
+         data-title="Broken Promise" data-genre="drama">
+        <img
+          src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=500&q=80"
+          alt="Broken Promise poster" loading="lazy">
+        <div class="movie-info">
+          <h3>Broken Promise</h3>
+          <p>Drama • 2026</p>
+          <span class="rating">⭐ 4.2/5</span>
+        </div>
+      </a>
 
-    <a href="beyond-the-storm.html" class="movie">
-      <img src="https://picsum.photos/400/600?random=105">
-      <div class="movie-info">
-        <h3 id="beyondStormTitle">Beyond the Storm</h3>
-        <p id="beyondStormGenre">Action • 2026</p>
-      </div>
-    </a>
+      <a class="movie-card" href="final-mission.html"
+         data-title="Final Mission" data-genre="action">
+        <img
+          src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=500&q=80"
+          alt="Final Mission poster" loading="lazy">
+        <div class="movie-info">
+          <h3>Final Mission</h3>
+          <p>Action • 2026</p>
+          <span class="rating">⭐ 4.4/5</span>
+        </div>
+      </a>
 
-    <a href="broken-promise.html" class="movie">
-      <img src="https://picsum.photos/400/600?random=106">
-      <div class="movie-info">
-        <h3 id="brokenPromiseTitle">Broken Promise</h3>
-        <p id="brokenPromiseGenre">Drama • 2026</p>
-      </div>
-    </a>
+      <a class="movie-card" href="village-secrets.html"
+         data-title="Village Secrets" data-genre="mystery">
+        <img
+          src="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=500&q=80"
+          alt="Village Secrets poster" loading="lazy">
+        <div class="movie-info">
+          <h3>Village Secrets</h3>
+          <p>Mystery • 2026</p>
+          <span class="rating">⭐ 4.3/5</span>
+        </div>
+      </a>
 
-    <a href="final-mission.html" class="movie">
-      <img src="https://picsum.photos/400/600?random=107">
-      <div class="movie-info">
-        <h3 id="finalMissionTitle">Final Mission</h3>
-        <p id="finalMissionGenre">Action • 2026</p>
-      </div>
-    </a>
+    </div>
 
-    <a href="village-secrets.html" class="movie">
-      <img src="https://picsum.photos/400/600?random=108">
-      <div class="movie-info">
-        <h3 id="villageSecretsTitle">Village Secrets</h3>
-        <p id="villageSecretsGenre">Drama • 2026</p>
-      </div>
-    </a>
+    <p id="noResults">No movies match your search. Try another title or genre.</p>
+  </main>
 
-  </div>
+  <footer>
+    © 2026 AfriFlix • Celebrating African Cinema 🌍
+  </footer>
 
-</main>
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const genreFilter = document.getElementById("genreFilter");
+    const movieCards = document.querySelectorAll(".movie-card");
+    const noResults = document.getElementById("noResults");
 
-<footer>
-  © 2026 AfriFlix<br>
-  Celebrating African Cinema 🌍
-</footer>
+    function filterMovies() {
+      const searchText = searchInput.value.trim().toLowerCase();
+      const selectedGenre = genreFilter.value;
+      let visibleCount = 0;
 
-<script>
+      movieCards.forEach((card) => {
+        const title = card.dataset.title.toLowerCase();
+        const genre = card.dataset.genre;
 
-function setLanguage(language) {
+        const matchesTitle = title.includes(searchText);
+        const matchesGenre =
+          selectedGenre === "all" || genre === selectedGenre;
 
-  localStorage.setItem("afriflixLanguage", language);
+        const show = matchesTitle && matchesGenre;
+        card.style.display = show ? "" : "none";
 
-  if (language === "fr") {
+        if (show) visibleCount++;
+      });
 
-    document.getElementById("moviesPageTitle").textContent = "🎬 Films";
-
-    document.getElementById("moviesPageSubtitle").textContent =
-      "Découvrez des films et des histoires sur AfriFlix.";
-
-    document.getElementById("kingdomTitle").textContent = "Royaume en ascension";
-    document.getElementById("lastJourneyTitle").textContent = "Le dernier voyage";
-    document.getElementById("cityDreamsTitle").textContent = "La ville des rêves";
-    document.getElementById("hiddenTruthTitle").textContent = "La vérité cachée";
-    document.getElementById("beyondStormTitle").textContent = "Au-delà de la tempête";
-    document.getElementById("brokenPromiseTitle").textContent = "Promesse brisée";
-    document.getElementById("finalMissionTitle").textContent = "Mission finale";
-    document.getElementById("villageSecretsTitle").textContent = "Secrets du village";
-    
-document.getElementById("kingdomGenre").textContent = "Drame • 2026";
-document.getElementById("lastJourneyGenre").textContent = "Aventure • 2026";
-document.getElementById("cityDreamsGenre").textContent = "Drame • 2026";
-document.getElementById("hiddenTruthGenre").textContent = "Thriller • 2026";
-document.getElementById("beyondStormGenre").textContent = "Action • 2026";
-document.getElementById("brokenPromiseGenre").textContent = "Drame • 2026";
-document.getElementById("finalMissionGenre").textContent = "Action • 2026";
-document.getElementById("villageSecretsGenre").textContent = "Drame • 2026";
-    document.getElementById("allFilter").textContent = "Tous";
-document.getElementById("actionFilter").textContent = "Action";
-document.getElementById("dramaFilter").textContent = "Drame";
-document.getElementById("romanceFilter").textContent = "Romance";
-document.getElementById("thrillerFilter").textContent = "Thriller";
-    document.getElementById("featuredLabel").textContent = "⭐ FILM À L’AFFICHE";
-    document.getElementById("featuredMeta").textContent =
-  "Drame • 2026   ⭐ 8.5/10";
-document.getElementById("featuredTitle").textContent = "Royaume en ascension";
-document.getElementById("featuredDescription").textContent =
-  "Une histoire puissante de courage, d’ambition et de survie.";
-document.getElementById("featuredButton").textContent = "▶ Regarder maintenant";
-
-  } else {
-
-    document.getElementById("moviesPageTitle").textContent = "🎬 Movies";
-
-    document.getElementById("moviesPageSubtitle").textContent =
-      "Explore movies and stories on AfriFlix.";
-
-    document.getElementById("kingdomTitle").textContent = "Kingdom Rising";
-    document.getElementById("lastJourneyTitle").textContent = "The Last Journey";
-    document.getElementById("cityDreamsTitle").textContent = "City of Dreams";
-    document.getElementById("hiddenTruthTitle").textContent = "Hidden Truth";
-    document.getElementById("beyondStormTitle").textContent = "Beyond the Storm";
-    document.getElementById("brokenPromiseTitle").textContent = "Broken Promise";
-    document.getElementById("finalMissionTitle").textContent = "Final Mission";
-    document.getElementById("villageSecretsTitle").textContent = "Village Secrets";
-    
-document.getElementById("kingdomGenre").textContent = "Drama • 2026";
-document.getElementById("lastJourneyGenre").textContent = "Adventure • 2026";
-document.getElementById("cityDreamsGenre").textContent = "Drama • 2026";
-document.getElementById("hiddenTruthGenre").textContent = "Thriller • 2026";
-document.getElementById("beyondStormGenre").textContent = "Action • 2026";
-document.getElementById("brokenPromiseGenre").textContent = "Drama • 2026";
-document.getElementById("finalMissionGenre").textContent = "Action • 2026";
-document.getElementById("villageSecretsGenre").textContent = "Drama • 2026";
-    document.getElementById("featuredLabel").textContent = "⭐ FEATURED MOVIE";
-    document.getElementById("featuredMeta").textContent =
-  "Drama • 2026   ⭐ 8.5/10";
-document.getElementById("featuredTitle").textContent = "Kingdom Rising";
-document.getElementById("featuredDescription").textContent =
-  "A powerful story of courage, ambition and survival.";
-document.getElementById("featuredButton").textContent = "▶ Watch Now";
-    document.getElementById("allFilter").textContent = "All";
-document.getElementById("actionFilter").textContent = "Action";
-document.getElementById("dramaFilter").textContent = "Drama";
-document.getElementById("romanceFilter").textContent = "Romance";
-document.getElementById("thrillerFilter").textContent = "Thriller";
-    
-  }
-}
-  const savedLanguage = localStorage.getItem("afriflixLanguage");
-
-if (savedLanguage) {
-  setLanguage(savedLanguage);
-}
-
-</script>
-<script>
-
-window.selectedCategory = "all";
-
-function searchMovies() {
-  applyMovieFilters();
-}
-
-function filterMovies(category) {
-  window.selectedCategory = category;
-  applyMovieFilters();
-}
-
-function applyMovieFilters() {
-
-  const input = document.getElementById("movieSearch").value.toLowerCase();
-  const category = window.selectedCategory;
-
-  const movies = document.querySelectorAll(".movie");
-  const noMoviesMessage = document.getElementById("noMoviesMessage");
-
-  let visibleMovies = 0;
-
-  movies.forEach(movie => {
-
-    const title = movie.querySelector("h3").textContent.toLowerCase();
-    const genre = movie.querySelector("p").textContent;
-
-    const matchesSearch = title.includes(input);
-    const matchesCategory =
-      category === "all" || genre.includes(category);
-
-    if (matchesSearch && matchesCategory) {
-      movie.style.display = "";
-      visibleMovies++;
-    } else {
-      movie.style.display = "none";
+      noResults.style.display = visibleCount === 0 ? "block" : "none";
     }
 
-  });
-
-  noMoviesMessage.style.display =
-    visibleMovies === 0 ? "block" : "none";
-}
-
-</script>
+    searchInput.addEventListener("input", filterMovies);
+    genreFilter.addEventListener("change", filterMovies);
+  </script>
 </body>
 </html>
