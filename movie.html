@@ -327,6 +327,47 @@
       </p>
     </section>
 
+<section id="reviewsSection" style="margin: 35px 0;">
+  <h2>⭐ Ratings & Reviews</h2>
+
+  <p id="averageRating" class="metadata">
+    Loading ratings...
+  </p>
+
+  <form id="reviewForm" style="background:#171717;padding:18px;border-radius:8px;max-width:600px;">
+    <label for="reviewRating">Your rating</label>
+
+    <select id="reviewRating" required
+      style="display:block;width:100%;padding:12px;margin:10px 0 18px;background:#222;color:white;border:1px solid #444;border-radius:5px;">
+      <option value="">Choose stars</option>
+      <option value="5">⭐⭐⭐⭐⭐ — Excellent</option>
+      <option value="4">⭐⭐⭐⭐ — Very good</option>
+      <option value="3">⭐⭐⭐ — Good</option>
+      <option value="2">⭐⭐ — Fair</option>
+      <option value="1">⭐ — Poor</option>
+    </select>
+
+    <label for="reviewText">Write your review</label>
+
+    <textarea id="reviewText" required maxlength="1000"
+      placeholder="What did you think about this movie?"
+      style="display:block;width:100%;min-height:110px;padding:12px;margin:10px 0;background:#222;color:white;border:1px solid #444;border-radius:5px;resize:vertical;"></textarea>
+
+    <p id="reviewCount" class="metadata">0/1000 characters</p>
+
+    <button id="submitReview" class="primary-button" type="submit">
+      Submit Review
+    </button>
+
+    <p id="reviewMessage" class="metadata" aria-live="polite"></p>
+  </form>
+
+  <h2 style="margin-top:30px;">What viewers think</h2>
+  <div id="reviewsList">
+    <p class="metadata">Loading reviews...</p>
+  </div>
+</section>
+    
     <section>
       <h2>More Like This</h2>
 
