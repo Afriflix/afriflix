@@ -1109,9 +1109,13 @@ const supabaseClient = supabase.createClient(
   SUPABASE_KEY
 );
   supabaseClient.auth.getSession().then(function(result) {
-  if (result.data.session) {
-    document.getElementById("authButton").textContent = "My Account";
-  }
+  document.getElementById("authButton").textContent =
+    result.data.session ? "My Account" : "Sign In";
+});
+
+supabaseClient.auth.onAuthStateChange(function(event, session) {
+  document.getElementById("authButton").textContent =
+    session ? "My Account" : "Sign In";
 });
   </script>
   <div id="authModal" style="display:none;">
