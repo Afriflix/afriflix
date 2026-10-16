@@ -1029,8 +1029,9 @@ async function signUp() {
   document.getElementById("authMessage").textContent =
     "Account created successfully! 🎉";
 }
-  async function signIn() {
-  const email = document.getElementById("authEmail").value;
+
+async function signIn() {
+  const email = document.getElementById("authEmail").value.trim();
   const password = document.getElementById("authPassword").value;
 
   const { data, error } = await supabaseClient.auth.signInWithPassword({
@@ -1044,10 +1045,15 @@ async function signUp() {
   }
 
   document.getElementById("authMessage").textContent =
-  "Signed in successfully! 🎉";
+    "Signed in successfully! 🎉";
 
-document.getElementById("authButton").textContent = "My Account";
-  }
+  document.getElementById("authButton").textContent = "My Account";
+
+  document.getElementById("authModal").style.display = "none";
+
+  displayWatchlist();
+}
+  
   async function signOut() {
   const { error } = await supabaseClient.auth.signOut();
 
