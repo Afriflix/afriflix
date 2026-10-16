@@ -353,5 +353,140 @@ footer {
   });
 })();
 </script>
+  <script>
+(() => {
+  const client = window.supabase.createClient(
+    "https://caufbkwgwbudwpqhdgqa.supabase.co",
+    "sb_publishable_dmWG86ick8T5Z3lUV9Fiwg_tM4mpffo"
+  );
+
+  const movieName = "Broken Promise";
+  const form = document.getElementById("reviewForm");
+  const ratingInput = document.getElementById("reviewRating");
+  const textInput = document.getElementById("reviewText");
+  const message = document.getElementById("reviewMessage");
+  const list = document.getElementById("reviewsList");
+  const average = document.getElementById("averageRating");
+  const submitButton = document.getElementById("submitReview");
+  const count = document.getElementById("reviewCount");
+
+  if (!form || !ratingInput || !textInput || !message ||
+      !list || !average || !submitButton || !count) {
+    console.error("AfriFlix review form elements are missing.");
+    return;
+  }
+
+  textInput.addEventListener("input", () => {
+    count.textContent = textInput.value.length + "/1000 characters";
+  });
+
+  async function loadReviews() {
+    const { data, error } = await client
+      .from("movie_reviews")
+      .select("id, rating, review_text, created_at")
+      .eq("movie_name", movieName)
+      .order("created_at", { ascending: false });
+
+    list.replaceChildren();
+
+    if (error) {
+      average.textContent = "Could not load ratings.";
+      list.textContent = "Please refresh the page and try again.";
+      console.error("Review loading error:", error);
+      return;
+    }
+
+    if (!data.length) {
+      average.textContent = "No ratings yet. Be the first to review!";
+      list.textContent = "No reviews yet.";
+      return;
+    }
+
+    const total = data.reduce(
+      (sum, review) => sum + review.rating, 0
+    );
+
+    average.textContent =
+      "⭐ " + (total / data.length).toFixed(1) +
+      "/5 from " + data.length +
+      (data.length === 1 ? " review" : " reviews");
+
+    data.forEach((review) => {
+      const card = document.createElement("div");
+      card.style.cssText =
+        "background:#222;padding:15px;margin:12px 0;border-radius:8px;";
+
+      const stars = document.createElement("p");
+      stars.style.color = "#f5c518";
+      stars.textContent =
+        "⭐".repeat(review.rating) + " (" + review.rating + "/5)";
+
+      const body = document.createElement("p");
+      body.style.whiteSpace = "pre-wrap";
+      body.textContent = review.review_text;
+
+      const date = document.createElement("p");
+      date.style.color = "#aaa";
+      date.textContent =
+        new Date(review.created_at).toLocaleDateString();
+
+      card.append(stars, body, date);
+      list.appendChild(card);
+    });
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    submitButton.disabled = true;
+    message.textContent = "Submitting your review...";
+
+    try {
+      const { data, error } = await client.auth.getSession();
+      if (error) throw error;
+
+      if (!data.session) {
+        message.textContent =
+          "Please sign in on AfriFlix before submitting a review.";
+        return;
+      }
+
+      const rating = Number(ratingInput.value);
+      const reviewText = textInput.value.trim();
+
+      if (!rating || !reviewText) {
+        message.textContent =
+          "Choose a rating and write a review.";
+        return;
+      }
+
+      const { error: saveError } = await client
+        .from("movie_reviews")
+        .insert({
+          user_id: data.session.user.id,
+          movie_name: movieName,
+          rating: rating,
+          review_text: reviewText
+        });
+
+      if (saveError) throw saveError;
+
+      form.reset();
+      count.textContent = "0/1000 characters";
+      message.textContent =
+        "Your review was submitted successfully!";
+
+      await loadReviews();
+    } catch (error) {
+      console.error("Review submission error:", error);
+      message.textContent =
+        "Could not submit your review. Please try again.";
+    } finally {
+      submitButton.disabled = false;
+    }
+  });
+
+  loadReviews();
+})();
+</script>
 </body>
 </html>
