@@ -1006,10 +1006,28 @@ if (savedLanguage) {
   function showAuth() {
   document.getElementById("authModal").style.display = "flex";
 }
+
 async function signUp() {
-  const email = document.getElementById("authEmail").value;
-  const password = document.getElementById("authPassword").value;
-  const fullName = document.getElementById("authName").value;
+  const emailInput = document.getElementById("authEmail");
+  const passwordInput = document.getElementById("authPassword");
+  const nameInput = document.getElementById("authName");
+  const message = document.getElementById("authMessage");
+
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+  const fullName = nameInput.value.trim();
+
+  message.textContent = "";
+
+  if (!fullName || !email || !password) {
+    message.textContent = "Please fill in all fields.";
+    return;
+  }
+
+  if (password.length < 6) {
+    message.textContent = "Password must be at least 6 characters.";
+    return;
+  }
 
   const { data, error } = await supabaseClient.auth.signUp({
     email: email,
@@ -1022,12 +1040,21 @@ async function signUp() {
   });
 
   if (error) {
-    document.getElementById("authMessage").textContent = error.message;
+    message.textContent = error.message;
     return;
   }
 
-  document.getElementById("authMessage").textContent =
-    "Account created successfully! 🎉";
+  if (data.session) {
+    message.textContent = "Account created successfully! 🎉";
+
+    document.getElementById("authButton").textContent = "My Account";
+    document.getElementById("authModal").style.display = "none";
+
+    displayWatchlist();
+  } else {
+    message.textContent =
+      "Account created. Please follow the next steps to access your account.";
+  }
 }
 
 async function signIn() {
