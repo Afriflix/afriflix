@@ -1176,10 +1176,13 @@ supabaseClient.auth.onAuthStateChange(function(event, session) {
   </div>
     </div>
 
-    <div class="account-section">
-      <h3>⭐ My Ratings</h3>
-      <p>Your rated movies will appear here.</p>
-    </div>
+    
+<div class="account-section">
+  <h3>⭐ My Ratings</h3>
+  <div id="accountRatings">
+    <p>Your ratings will appear here.</p>
+  </div>
+</div>
 
     <div class="account-actions">
       <button onclick="signOut()" class="logout-btn">Sign Out</button>
