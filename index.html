@@ -1008,11 +1008,76 @@ async function handleAuthButton() {
       (session.user.user_metadata?.full_name || "AfriFlix User");
 
     displayWatchlist();
+    displayAccountRatings();
   } else {
     showAuth();
   }
 }
-  
+
+async function displayAccountRatings() {
+  const ratingsContainer = document.getElementById("accountRatings");
+
+  ratingsContainer.innerHTML = "<p>Loading your ratings...</p>";
+
+  const { data: sessionData, error: sessionError } =
+    await supabaseClient.auth.getSession();
+
+  if (sessionError || !sessionData.session) {
+    ratingsContainer.innerHTML =
+      "<p>Please sign in to view your ratings.</p>";
+    return;
+  }
+
+  const user = sessionData.session.user;
+
+  const { data, error } = await supabaseClient
+    .from("movie_reviews")
+    .select("movie_name, rating, created_at")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Could not load ratings:", error.message);
+    ratingsContainer.innerHTML =
+      "<p>Unable to load your ratings. Please try again.</p>";
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    ratingsContainer.innerHTML =
+      "<p>You haven't rated any movies yet. ⭐</p>";
+    return;
+  }
+
+  ratingsContainer.innerHTML = "";
+
+  data.forEach(function(item) {
+    const card = document.createElement("div");
+    card.style.padding = "12px";
+    card.style.marginBottom = "10px";
+    card.style.background = "#222";
+    card.style.borderRadius = "8px";
+
+    const movie = document.createElement("p");
+    movie.textContent = item.movie_name;
+    movie.style.fontWeight = "bold";
+    movie.style.margin = "0 0 6px";
+
+    const stars = document.createElement("p");
+    const rating = Number(item.rating);
+    stars.textContent =
+      "★".repeat(Math.max(0, Math.min(5, rating))) +
+      "☆".repeat(5 - Math.max(0, Math.min(5, rating))) +
+      " (" + rating + "/5)";
+    stars.style.color = "#ffc107";
+    stars.style.margin = "0";
+
+    card.appendChild(movie);
+    card.appendChild(stars);
+    ratingsContainer.appendChild(card);
+  });
+  }
+      
   function showAuth() {
   document.getElementById("authModal").style.display = "flex";
 }
