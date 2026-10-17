@@ -986,23 +986,33 @@ if (savedLanguage) {
   setLanguage(savedLanguage);
 }
   
-  function handleAuthButton() {
-  supabaseClient.auth.getSession().then(function(result) {
-    if (result.data.session) {
-      document.getElementById("accountPanel").style.display = "flex";
-      displayWatchlist();
-      
-      document.getElementById("accountEmail").textContent =
-        "Email: " + result.data.session.user.email;
+  
+async function handleAuthButton() {
+  const { data, error } = await supabaseClient.auth.getSession();
 
-      document.getElementById("accountName").textContent =
-        "Welcome, " +
-        (result.data.session.user.user_metadata.full_name || "AfriFlix User");
-    } else {
-      showAuth();
-    }
-  });
+  if (error) {
+    alert("Unable to check your account. Please try again.");
+    return;
   }
+
+  const session = data.session;
+
+  if (session) {
+    document.getElementById("accountPanel").style.display = "flex";
+
+    document.getElementById("accountEmail").textContent =
+      "Email: " + (session.user.email || "Not available");
+
+    document.getElementById("accountName").textContent =
+      "Welcome, " +
+      (session.user.user_metadata?.full_name || "AfriFlix User");
+
+    displayWatchlist();
+  } else {
+    showAuth();
+  }
+}
+  
   function showAuth() {
   document.getElementById("authModal").style.display = "flex";
 }
