@@ -1342,6 +1342,13 @@ supabaseClient.auth.onAuthStateChange(function(event, session) {
   document.getElementById("authButton").textContent =
     session ? "My Account" : "Sign In";
 });
+    
+supabaseClient.auth.onAuthStateChange(function(event, session) {
+  if (event === "PASSWORD_RECOVERY") {
+    document.getElementById("resetPasswordPanel").style.display = "flex";
+  }
+});
+    
   </script>
   <div id="authModal" style="display:none;">
   <div>
