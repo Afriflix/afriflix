@@ -1250,8 +1250,9 @@ async function signUp() {
   }
 
   if (password.length < 8) {
-    message.textContent = "Password must be at least 8 characters.";
-    return;
+  message.textContent =
+    "Your password must be at least 8 characters.";
+  return;
   }
 
   const { data, error } = await supabaseClient.auth.signUp({
