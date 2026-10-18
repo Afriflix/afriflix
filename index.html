@@ -1153,6 +1153,41 @@ async function editProfile() {
   document.getElementById("authModal").style.display = "flex";
 }
 
+async function forgotPassword() {
+  const emailInput = document.getElementById("authEmail");
+  const message = document.getElementById("authMessage");
+
+  const email = emailInput.value.trim();
+
+  message.textContent = "";
+
+  if (!email) {
+    message.textContent =
+      "Please enter your email address first.";
+    emailInput.focus();
+    return;
+  }
+
+  message.textContent = "Sending password-reset email...";
+
+  const { error } = await supabaseClient.auth.resetPasswordForEmail(
+    email,
+    {
+      redirectTo: "https://afriflix.github.io/afriflix/"
+    }
+  );
+
+  if (error) {
+    message.textContent =
+      "Could not send the reset email. Please check your email and try again.";
+    console.error("Password reset error:", error.message);
+    return;
+  }
+
+  message.textContent =
+    "If an account exists for this email, a password-reset link will be sent. Please check your inbox and spam folder.";
+  }
+  
 async function signUp() {
   const emailInput = document.getElementById("authEmail");
   const passwordInput = document.getElementById("authPassword");
