@@ -1496,11 +1496,13 @@ document.getElementById("resetPasswordForm").addEventListener("submit", async fu
   }
 });
  </script>
-  <script>
+  
+<script>
 (function () {
-  let resetBackHandlerActive = false;
+  let resetFlowActive = false;
+  let handlingBack = false;
 
-  function closeResetBoard() {
+  function showSignIn() {
     const resetPanel = document.getElementById("resetPasswordPanel");
     const authModal = document.getElementById("authModal");
 
@@ -1511,42 +1513,66 @@ document.getElementById("resetPasswordForm").addEventListener("submit", async fu
     if (authModal) {
       authModal.style.display = "flex";
     }
-
-    resetBackHandlerActive = false;
   }
 
   supabaseClient.auth.onAuthStateChange(function (event) {
     if (event === "PASSWORD_RECOVERY") {
-      const resetPanel = document.getElementById("resetPasswordPanel");
+      resetFlowActive = true;
+      showResetBoard();
 
-      if (resetPanel) {
-        resetPanel.style.display = "flex";
-      }
-
-      if (!resetBackHandlerActive) {
-        resetBackHandlerActive = true;
-
-        history.pushState(
-          { afriflixPasswordReset: true },
-          "",
-          window.location.href
-        );
-      }
+      history.pushState(
+        { afriflixReset: true },
+        "",
+        window.location.href
+      );
     }
   });
 
-  window.addEventListener("popstate", function () {
+  function showResetBoard() {
+    const resetPanel = document.getElementById("resetPasswordPanel");
+
+    if (resetPanel) {
+      resetPanel.style.display = "flex";
+    }
+  }
+
+  window.addEventListener("popstate", async function () {
+    if (!resetFlowActive || handlingBack) {
+      return;
+    }
+
+    handlingBack = true;
+
     const resetPanel = document.getElementById("resetPasswordPanel");
 
     if (
-      resetBackHandlerActive &&
       resetPanel &&
       resetPanel.style.display !== "none"
     ) {
-      closeResetBoard();
+      showSignIn();
+
+      // Keep AfriFlix on the homepage for the next Back press.
+      history.pushState(
+        { afriflixSignIn: true },
+        "",
+        window.location.href
+      );
+
+      // End only the password-recovery session.
+      try {
+        await supabaseClient.auth.signOut();
+      } catch (error) {
+        console.error("Recovery session cleanup failed:", error);
+      }
+
+      showSignIn();
+    } else {
+      showSignIn();
     }
+
+    handlingBack = false;
   });
 })();
- </script>
+</script>
 </body>
 </html>
