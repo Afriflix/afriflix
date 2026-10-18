@@ -1496,5 +1496,57 @@ document.getElementById("resetPasswordForm").addEventListener("submit", async fu
   }
 });
  </script>
+  <script>
+(function () {
+  let resetBackHandlerActive = false;
+
+  function closeResetBoard() {
+    const resetPanel = document.getElementById("resetPasswordPanel");
+    const authModal = document.getElementById("authModal");
+
+    if (resetPanel) {
+      resetPanel.style.display = "none";
+    }
+
+    if (authModal) {
+      authModal.style.display = "flex";
+    }
+
+    resetBackHandlerActive = false;
+  }
+
+  supabaseClient.auth.onAuthStateChange(function (event) {
+    if (event === "PASSWORD_RECOVERY") {
+      const resetPanel = document.getElementById("resetPasswordPanel");
+
+      if (resetPanel) {
+        resetPanel.style.display = "flex";
+      }
+
+      if (!resetBackHandlerActive) {
+        resetBackHandlerActive = true;
+
+        history.pushState(
+          { afriflixPasswordReset: true },
+          "",
+          window.location.href
+        );
+      }
+    }
+  });
+
+  window.addEventListener("popstate", function () {
+    const resetPanel = document.getElementById("resetPasswordPanel");
+
+    if (
+      resetBackHandlerActive &&
+      resetPanel &&
+      resetPanel.style.display !== "none"
+    ) {
+      closeResetBoard();
+    }
+  });
+})();
+ </script>
 </body>
 </html>
