@@ -1380,5 +1380,45 @@ supabaseClient.auth.onAuthStateChange(function(event, session) {
 
   </div>
 </div>
+  
+<div id="resetPasswordPanel"
+     style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:99999;align-items:center;justify-content:center;padding:20px;">
+
+  <div style="background:#181818;color:white;padding:25px;border-radius:12px;width:100%;max-width:420px;box-sizing:border-box;">
+
+    <h2>🔐 Create a New Password</h2>
+
+    <p>Enter your new password below.</p>
+
+    <form id="resetPasswordForm">
+      <input
+        id="newPassword"
+        type="password"
+        placeholder="New password (minimum 6 characters)"
+        minlength="6"
+        autocomplete="new-password"
+        required
+        style="width:100%;box-sizing:border-box;padding:14px;margin:10px 0;border-radius:6px;">
+
+      <input
+        id="confirmNewPassword"
+        type="password"
+        placeholder="Confirm new password"
+        minlength="6"
+        autocomplete="new-password"
+        required
+        style="width:100%;box-sizing:border-box;padding:14px;margin:10px 0;border-radius:6px;">
+
+      <button
+        type="submit"
+        style="width:100%;padding:13px;background:#e50914;color:white;border:none;border-radius:6px;font-weight:bold;">
+        Save New Password
+      </button>
+    </form>
+
+    <p id="resetPasswordMessage" role="status"></p>
+
+  </div>
+ </div>
 </body>
 </html>
