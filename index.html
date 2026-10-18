@@ -1147,81 +1147,6 @@ async function editProfile() {
 
   message.textContent = "Your profile name was updated successfully! 🎉";
   }
-
-
-document.getElementById("resetPasswordForm").addEventListener(
-  "submit",
-  async function(event) {
-    event.preventDefault();
-
-    const password = document.getElementById("newPassword").value;
-    const confirmPassword =
-      document.getElementById("confirmNewPassword").value;
-    const message = document.getElementById("resetPasswordMessage");
-    const button = event.submitter;
-
-    message.textContent = "";
-
-    if (password.length < 8) {
-      message.textContent =
-        "Your password must be at least 8 characters.";
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      message.textContent = "The passwords do not match.";
-      return;
-    }
-
-    message.textContent = "Checking your reset session...";
-
-    const { data: sessionData, error: sessionError } =
-      await supabaseClient.auth.getSession();
-
-    if (sessionError || !sessionData.session) {
-      message.textContent =
-        "Your reset session is missing or expired. Please request a fresh password-reset email and open its newest link.";
-      return;
-    }
-
-    if (button) button.disabled = true;
-    message.textContent = "Saving your new password...";
-
-    try {
-      const { data, error } = await supabaseClient.auth.updateUser({
-        password: password
-      });
-
-      if (error) {
-        message.textContent =
-          "Password update failed: " + error.message;
-        console.error("Password update error:", error);
-        return;
-      }
-
-      if (!data.user) {
-        message.textContent =
-          "We could not confirm the password update. Please try again.";
-        return;
-      }
-
-      document.getElementById("newPassword").value = "";
-      document.getElementById("confirmNewPassword").value = "";
-
-      message.textContent =
-        "Password changed successfully! 🎉 Please sign out and test your new password.";
-
-      message.style.color = "#4caf50";
-    } catch (error) {
-      message.textContent =
-        "An unexpected error occurred. Please try again.";
-      console.error("Password reset error:", error);
-    } finally {
-      if (button) button.disabled = false;
-    }
-  }
-);
-  
       
   function showAuth() {
   document.getElementById("authModal").style.display = "flex";
@@ -1513,5 +1438,63 @@ supabaseClient.auth.onAuthStateChange(function(event, session) {
 
   </div>
  </div>
+  <script>
+document.getElementById("resetPasswordForm").addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  const message = document.getElementById("resetPasswordMessage");
+  const button = event.submitter;
+  const password = document.getElementById("newPassword").value;
+  const confirmPassword = document.getElementById("confirmNewPassword").value;
+
+  if (password.length < 8) {
+    message.textContent = "Your password must be at least 8 characters.";
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    message.textContent = "The passwords do not match.";
+    return;
+  }
+
+  if (button) button.disabled = true;
+  message.style.color = "white";
+  message.textContent = "Saving your new password...";
+
+  try {
+    const { data: sessionData, error: sessionError } =
+      await supabaseClient.auth.getSession();
+
+    if (sessionError || !sessionData.session) {
+      message.textContent = "Your reset link has expired or is invalid. Request a new password-reset email and open its newest link.";
+      return;
+    }
+
+    const { data, error } = await supabaseClient.auth.updateUser({
+      password: password
+    });
+
+    if (error) {
+      message.textContent = "Password update failed: " + error.message;
+      return;
+    }
+
+    if (!data.user) {
+      message.textContent = "We could not confirm the password update. Please try again.";
+      return;
+    }
+
+    message.style.color = "#4caf50";
+    message.textContent = "Password changed successfully! You can now sign in with your new password.";
+    document.getElementById("newPassword").value = "";
+    document.getElementById("confirmNewPassword").value = "";
+  } catch (error) {
+    message.textContent = "Something went wrong. Please request a new reset link and try again.";
+    console.error("Password reset error:", error);
+  } finally {
+    if (button) button.disabled = false;
+  }
+});
+ </script>
 </body>
 </html>
