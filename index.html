@@ -1271,20 +1271,28 @@ async function signUp() {
 
   if (data.session) {
     message.textContent = "Account created successfully! 🎉";
+message.style.color = "#4caf50";
 
-    document.getElementById("authButton").textContent = "My Account";
-    document.getElementById("authModal").style.display = "none";
+document.getElementById("authButton").textContent = "My Account";
 
-    displayWatchlist();
+setTimeout(function() {
+  document.getElementById("authModal").style.display = "none";
+  message.textContent = "";
+  message.style.color = "white";
+  displayWatchlist();
+}, 2000);
   } else {
     message.textContent =
       "Account created. Please follow the next steps to access your account.";
   }
 }
 
+
 async function signIn() {
   const email = document.getElementById("authEmail").value.trim();
   const password = document.getElementById("authPassword").value;
+  const message = document.getElementById("authMessage");
+  const authModal = document.getElementById("authModal");
 
   const { data, error } = await supabaseClient.auth.signInWithPassword({
     email: email,
@@ -1292,18 +1300,21 @@ async function signIn() {
   });
 
   if (error) {
-    document.getElementById("authMessage").textContent = error.message;
+    message.textContent = error.message;
     return;
   }
 
-  document.getElementById("authMessage").textContent =
-    "Signed in successfully! 🎉";
+  message.textContent = "Signed in successfully! 🎉";
+  message.style.color = "#4caf50";
 
   document.getElementById("authButton").textContent = "My Account";
 
-  document.getElementById("authModal").style.display = "none";
-
-  displayWatchlist();
+  setTimeout(function() {
+    authModal.style.display = "none";
+    message.textContent = "";
+    message.style.color = "white";
+    displayWatchlist();
+  }, 2000);
 }
   
   async function signOut() {
