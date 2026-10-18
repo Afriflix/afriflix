@@ -1091,7 +1091,63 @@ async function displayAccountRatings() {
     ratingsContainer.appendChild(card);
   });
 }
-  
+
+async function editProfile() {
+  const { data, error } = await supabaseClient.auth.getUser();
+
+  if (error || !data.user) {
+    alert("Please sign in again to edit your profile.");
+    return;
+  }
+
+  const currentName =
+    data.user.user_metadata?.full_name || "";
+
+  const newName = prompt(
+    "Enter your new display name:",
+    currentName
+  );
+
+  if (newName === null) {
+    return;
+  }
+
+  const trimmedName = newName.trim();
+  const message = document.getElementById("profileMessage");
+
+  if (!trimmedName) {
+    message.textContent = "Please enter a name.";
+    return;
+  }
+
+  if (trimmedName.length > 60) {
+    message.textContent = "Your name must be 60 characters or fewer.";
+    return;
+  }
+
+  message.textContent = "Saving your profile...";
+
+  const { data: updatedData, error: updateError } =
+    await supabaseClient.auth.updateUser({
+      data: {
+        full_name: trimmedName
+      }
+    });
+
+  if (updateError) {
+    message.textContent =
+      "Could not update your name. Please try again.";
+    console.error("Profile update failed:", updateError.message);
+    return;
+  }
+
+  document.getElementById("accountName").textContent =
+    "Welcome, " +
+    (updatedData.user.user_metadata?.full_name || trimmedName);
+
+  message.textContent = "Your profile name was updated successfully! 🎉";
+  }
+    
       
   function showAuth() {
   document.getElementById("authModal").style.display = "flex";
