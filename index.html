@@ -171,17 +171,21 @@ section {
 }
 
 .movie {
-  background: #151515;
-  border-radius: 14px;
+
+.movie {
+  background: linear-gradient(180deg, #191919 0%, #101010 100%);
+  border-radius: 16px;
   overflow: hidden;
-  transition: transform .25s ease, box-shadow .25s ease;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
   cursor: pointer;
-  border: 1px solid #252525;
+  border: 1px solid #292929;
+  box-shadow: 0 4px 14px rgba(0,0,0,.2);
 }
 
 .movie:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,.5);
+  border-color: #e50914;
+  box-shadow: 0 12px 28px rgba(229,9,20,.15);
 }
 
 .movie img {
